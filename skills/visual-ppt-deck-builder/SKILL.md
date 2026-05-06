@@ -15,7 +15,7 @@ description: Build editable PPTX decks from a confirmed topic, outline, visual s
 
 1. **确认主题**：主题、受众、使用场景、语气、是否有品牌或参考资料。
 2. **确认大纲**：先给出章节和叙事顺序，不直接开做页面。
-3. **确认风格**：结合用户偏好和主题，用 Codex 生图生成 5 套风格候选图。每套候选应像一张 mini style board，包含封面气质、内容页节奏、配色、字体感、图表气质和透明素材使用方式。
+3. **确认风格**：结合用户偏好和主题，用 Codex 生图生成 5 张独立 PNG 风格候选图，一张图只代表一种风格。不要把 5 个风格塞进一张总览图给用户选。
 4. **确认张数和每页内容**：输出 slide plan，逐页写清标题、核心信息、证明对象、需要生成的背景/透明素材/图表。
 5. **逐张生成**：按确认后的风格逐页生成背景、文案、透明 PNG 素材、图表和页面布局。
 6. **组合 PPTX**：优先使用可编辑文本、形状、图表和图片层。只有背景大图可以是 raster；正文、图表、关键标签不要糊成整页图。
@@ -24,7 +24,7 @@ description: Build editable PPTX decks from a confirmed topic, outline, visual s
 
 ## 风格候选要求
 
-5 套候选图必须是图片形式，不要只列文字风格名。建议候选覆盖不同方向：
+5 套候选图必须是真实图片形式，不要只列文字风格名，也不要用 SVG、HTML、CSS、Canvas 或 PPT 形状拼一张假图冒充生图。建议候选覆盖不同方向：
 
 - 业务冷静型：适合经营复盘、战略汇报、董事会。
 - 编辑杂志型：适合课程、品牌故事、公开演讲。
@@ -34,7 +34,7 @@ description: Build editable PPTX decks from a confirmed topic, outline, visual s
 
 候选图通过后，把被选中的方向固化为 `visual_style`：色板、字体气质、背景策略、图表语言、透明素材策略、禁用元素。
 
-如果当前环境无法直接保存 Codex 生图候选，先运行兜底工具生成 5 张 SVG mini style board，不要只交文字：
+如果当前环境无法直接保存 Codex 生图候选，先运行工具生成 5 套生图提示包和图层契约，再逐张调用 Codex 生图能力生成 PNG：
 
 ```bash
 node "${CODEX_HOME:-$HOME/.codex}/skills/visual-ppt-deck-builder/scripts/build_style_candidates.js" \
@@ -42,7 +42,15 @@ node "${CODEX_HOME:-$HOME/.codex}/skills/visual-ppt-deck-builder/scripts/build_s
   --topic "<deck topic>"
 ```
 
-这些 SVG 不是最终高质量素材，只是为了让风格选择有可视化锚点；正式交付仍应优先使用 Codex 生图能力生成更精致的风格候选。
+工具会生成：
+
+- `style-candidate-spec.json`：5 个风格候选、PNG 样张路径、透明素材策略和 PPT 图层契约。
+- `style-candidates.md`：执行说明和用户确认清单。
+- `prompts/style-sample-*.md`：逐张交给 Codex 生图的提示词。
+
+这一步只生成提示包，不生成视觉假图。真正给用户看的必须是 5 张独立 PNG：`style-sample-minimal-premium.png`、`style-sample-playful-anime.png`、`style-sample-data-analytics.png`、`style-sample-oriental-heritage.png`、`style-sample-future-tech.png`。
+
+风格样张可以展示封面气质、内容页节奏、图表语言和透明素材使用方式，但不要把最终可读正文、图表数字或关键标题烤进图片里。最终 PPT 中这些内容必须用可编辑文本、形状或图表层实现。
 
 ## 透明素材策略
 

@@ -151,7 +151,7 @@ class visual_ppt_deck_builder_tests(unittest.TestCase):
             self.assertIn("slides", result.stderr)
             self.assertFalse(output_path.exists())
 
-    def test_style_candidate_helper_writes_five_visual_boards(self):
+    def test_style_candidate_helper_writes_real_image_prompt_packet(self):
         with tempfile.TemporaryDirectory() as tmp_dir:
             tmp_path = Path(tmp_dir)
             output_dir = tmp_path / "style-candidates"
@@ -174,13 +174,42 @@ class visual_ppt_deck_builder_tests(unittest.TestCase):
                 check=True,
             )
 
-            boards = sorted(output_dir.glob("style-board-*.svg"))
-            self.assertEqual(len(boards), 5)
+            self.assertFalse(list(output_dir.glob("*.svg")))
+            self.assertFalse(list(output_dir.glob("style-board-*")))
+            self.assertFalse((output_dir / "style-overview.svg").exists())
             self.assertTrue((output_dir / "style-candidates.md").is_file())
-            for board in boards:
-                content = board.read_text(encoding="utf-8")
-                self.assertIn("<svg", content)
-                self.assertIn("style board", content)
+            spec_path = output_dir / "style-candidate-spec.json"
+            self.assertTrue(spec_path.is_file())
+            spec = json.loads(spec_path.read_text(encoding="utf-8"))
+            self.assertEqual(spec["candidate_count"], 5)
+            self.assertEqual(spec["delivery_contract"], "five_independent_real_image_pngs")
+            self.assertEqual(spec["topic"], "普通人用 Codex 做视觉方案")
+            expected_names = ["简约高级", "活泼动漫", "数据分析", "国潮东方", "未来科技"]
+            self.assertEqual([candidate["name"] for candidate in spec["candidates"]], expected_names)
+            seen_sample_paths = set()
+            for candidate in spec["candidates"]:
+                self.assertTrue(candidate["sample_image_path"].endswith(".png"))
+                self.assertNotIn(candidate["sample_image_path"], seen_sample_paths)
+                seen_sample_paths.add(candidate["sample_image_path"])
+                prompt_path = output_dir / candidate["prompt_file"]
+                self.assertTrue(prompt_path.is_file())
+                prompt_content = prompt_path.read_text(encoding="utf-8")
+                self.assertIn("Codex image generation", prompt_content)
+                self.assertIn("single independent 16:9 PNG", prompt_content)
+                self.assertIn("Do not bake readable slide text", prompt_content)
+                self.assertEqual(len(candidate["palette"]), 5)
+                self.assertGreaterEqual(len(candidate["best_for"]), 3)
+                self.assertGreaterEqual(len(candidate["raster_layers"]), 2)
+                self.assertGreaterEqual(len(candidate["transparent_assets"]), 2)
+                self.assertGreaterEqual(len(candidate["editable_layers"]), 4)
+                self.assertIn("editable", candidate["ppt_layering_contract"])
+            markdown = (output_dir / "style-candidates.md").read_text(encoding="utf-8")
+            self.assertIn("不得使用 SVG 拼凑", markdown)
+            self.assertIn("Codex 生图", markdown)
+            self.assertIn("文本可编辑", markdown)
+            self.assertIn("5 张独立 PNG", markdown)
+            for banned_text in ["Topic", "Style", "Assets", "TODO", "TBD", "占位"]:
+                self.assertNotIn(banned_text, markdown)
 
     def test_commercial_deck_quality_gate_accepts_rich_spec(self):
         with tempfile.TemporaryDirectory() as tmp_dir:

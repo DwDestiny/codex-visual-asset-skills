@@ -20,7 +20,7 @@
 
 - `transparent-visual-assets`：用 Codex 生图生成纯色背景素材，再清理成透明 PNG。
 - `sprite-animation-assets`：规划连续帧，把透明帧组合成 GIF 预览和 spritesheet/atlas。
-- `visual-ppt-deck-builder`：先确认主题、大纲和 5 套图片风格候选，再用透明素材、图表和排版组合成可编辑 PPTX。
+- `visual-ppt-deck-builder`：先确认主题、大纲和 5 张独立 PNG 风格候选，再用透明素材、可编辑文本、图表和排版组合成 PPTX。
 
 一句话：需要完整 Codex 自定义宠物包时继续用 `hatch-pet`；只想做透明素材、动画素材或视觉型 PPTX 时，用这些更轻。
 
@@ -131,8 +131,8 @@ python ~/.codex/skills/sprite-animation-assets/scripts/compose_sprite_set.py --h
 `visual-ppt-deck-builder` 会指导 Codex：
 
 1. 先确认主题、大纲、风格、张数和每页内容。
-2. 通过 5 套图片候选确认视觉方向。
-3. 逐页生成背景、文案、透明素材、图表和排版，并交付可编辑 PPTX。
+2. 通过 5 张独立 PNG 候选确认视觉方向；不得使用 SVG 拼凑假图，也不要把 5 个风格塞进一张总览图。
+3. 逐页生成背景、文案、透明素材、图表和排版，并交付可编辑 PPTX；正文、图表和标签不能整页截图化。
 
 核心脚本：
 
@@ -197,7 +197,7 @@ Three general visual-asset skills extracted from and extended beyond the reusabl
 
 - `transparent-visual-assets` — generate a flat-background image with Codex, then clean it into a transparent PNG.
 - `sprite-animation-assets` — plan continuous frames and package transparent frames into GIF previews and spritesheet atlases.
-- `visual-ppt-deck-builder` — confirm the topic, outline, five image-based style candidates, slide plan, visual assets, layout, and export an editable PPTX.
+- `visual-ppt-deck-builder` — confirm the topic, outline, five independent PNG style candidates, slide plan, visual assets, layout, and export an editable PPTX.
 
 In short: use `hatch-pet` when you need a complete Codex custom pet package; use these smaller skills when you need transparent assets, animation assets, or visual PPTX decks.
 
@@ -308,8 +308,8 @@ python ~/.codex/skills/sprite-animation-assets/scripts/compose_sprite_set.py --h
 `visual-ppt-deck-builder` helps Codex:
 
 1. Confirm topic, outline, style, slide count, and per-slide content.
-2. Use five image-based candidates to lock the visual direction.
-3. Generate backgrounds, copy, transparent assets, charts, and layouts, then deliver an editable PPTX.
+2. Use five independent PNG candidates to lock the visual direction; do not fake style samples with SVG, and do not combine the five directions into one overview image.
+3. Generate backgrounds, copy, transparent assets, charts, and layouts, then deliver an editable PPTX; body text, charts, and labels must stay editable instead of being baked into a full-slide screenshot.
 
 Core script:
 

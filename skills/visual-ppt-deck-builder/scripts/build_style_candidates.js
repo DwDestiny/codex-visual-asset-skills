@@ -3,56 +3,71 @@
 const fs = require("fs");
 const path = require("path");
 
-const candidates = [
+const candidate_templates = [
   {
-    slug: "business-calm",
-    name: "业务冷静型",
-    background: "#F5F6F3",
-    foreground: "#17202A",
-    accent: "#1F8A70",
-    accent2: "#E76F51",
-    prompt:
-      "Create a mini style board for a calm business presentation. Light warm gray background, restrained green accent, subtle orange highlights, clean process cards, editable chart feeling, no logos, no readable fake text, 16:9.",
+    slug: "minimal-premium",
+    name: "简约高级",
+    palette: ["#050505", "#4A4A4A", "#A7A7A7", "#E1E1E1", "#FFFFFF"],
+    best_for: ["商业计划书", "融资路演", "咨询汇报"],
+    visual_direction:
+      "大量留白、黑白灰秩序、真实建筑线条和克制的商业咨询气质，适合严肃决策场景。",
+    raster_layers: ["浅灰建筑摄影感背景", "低对比纸张纹理", "细线空间透视氛围"],
+    transparent_assets: ["黑白线框图标组", "半透明建筑结构装饰", "咨询卡片角标"],
+    editable_layers: ["封面主标题", "英文副标题", "章节标题", "数据标签", "图表坐标和注释"],
+    prompt_seed:
+      "premium minimalist business consulting PowerPoint direction, elegant grayscale, architectural glass building details, abundant white space, thin black lines, refined corporate presentation mood",
   },
   {
-    slug: "editorial",
-    name: "编辑杂志型",
-    background: "#FFF9EF",
-    foreground: "#202124",
-    accent: "#E85D4F",
-    accent2: "#0E9AA7",
-    prompt:
-      "Create a 16:9 editorial magazine style board for a presentation. Large confident title area, generous white space, image placeholders, tomato red and teal accents, tactile paper texture, no logos, no readable fake text.",
+    slug: "playful-anime",
+    name: "活泼动漫",
+    palette: ["#FFC93C", "#FF9EB5", "#7BDDC8", "#8FD3FF", "#B9B2F8"],
+    best_for: ["教育课程", "儿童产品", "社群活动"],
+    visual_direction:
+      "明亮色彩、圆润结构、可爱角色和轻松课堂氛围，适合学习、活动和年轻用户表达。",
+    raster_layers: ["明亮教室场景背景", "柔和云朵和色块氛围", "课程页浅色纸面纹理"],
+    transparent_assets: ["可爱学生角色", "课程徽章贴纸", "星星和学习道具装饰"],
+    editable_layers: ["课程标题", "目标卡片文字", "按钮标签", "步骤编号", "图表解释文字"],
+    prompt_seed:
+      "playful anime education PowerPoint direction, cheerful classroom, cute original child character, rounded colorful cards, bright yellow pink blue palette, polished illustration quality",
   },
   {
-    slug: "product-demo",
-    name: "产品演示型",
-    background: "#F8FBFF",
-    foreground: "#172033",
-    accent: "#00A6D6",
-    accent2: "#F4C542",
-    prompt:
-      "Create a 16:9 product demo style board. Clean SaaS interface panels, command workspace, task checklist, preview cards for PPTX and visual assets, cyan accents, small lemon highlights, no logos, no readable fake text.",
+    slug: "data-analytics",
+    name: "数据分析",
+    palette: ["#020B1D", "#061C3A", "#0B4F86", "#5B5FF0", "#12C7D6"],
+    best_for: ["经营复盘", "增长分析", "行业报告"],
+    visual_direction:
+      "深色科技背景、高信息密度仪表盘、蓝色发光图表和清晰 KPI 层级，适合数据驱动叙事。",
+    raster_layers: ["深蓝网格空间背景", "发光数据柱状图氛围", "暗色仪表盘底图"],
+    transparent_assets: ["发光图表装饰", "KPI 卡片边框", "数据节点和连线元素"],
+    editable_layers: ["报告标题", "KPI 数字", "图表标题", "坐标轴标签", "来源说明"],
+    prompt_seed:
+      "data analytics PowerPoint direction, dark navy dashboard, luminous blue bar charts and line graph, KPI cards, high information density, premium enterprise report mood",
   },
   {
-    slug: "data-report",
-    name: "数据图表型",
-    background: "#F7FAFC",
-    foreground: "#101828",
-    accent: "#4568DC",
-    accent2: "#B06AB3",
-    prompt:
-      "Create a 16:9 data report style board. Precise dashboard composition, editable chart feeling, matrix blocks, dark navy typography, mint and magenta accents, clean grid, no logos, no readable fake text.",
+    slug: "oriental-heritage",
+    name: "国潮东方",
+    palette: ["#B91C1C", "#171717", "#E8DCC7", "#F3EADB", "#FAF8F2"],
+    best_for: ["品牌介绍", "文化项目", "消费品提案"],
+    visual_direction:
+      "宣纸质感、朱红墨黑、山水留白和当代表达，适合东方文化、品牌和消费品提案。",
+    raster_layers: ["宣纸纹理背景", "水墨山水远景", "朱红印章氛围"],
+    transparent_assets: ["水墨山石装饰", "朱红印章元素", "梅枝或器物剪影"],
+    editable_layers: ["品牌标题", "理念卡片文字", "章节题签", "说明正文", "页脚日期"],
+    prompt_seed:
+      "oriental heritage PowerPoint direction, premium Chinese ink landscape, rice paper texture, vermilion seal accent, elegant modern brand presentation, calm cultural luxury",
   },
   {
-    slug: "visual-story",
-    name: "视觉叙事型",
-    background: "#FFFDF7",
-    foreground: "#232323",
-    accent: "#65B6FF",
-    accent2: "#FF7C8A",
-    prompt:
-      "Create a 16:9 visual storytelling style board. Friendly editorial illustration, clean white background, sky blue, coral and soft green accents, journey map, transparent sticker-like assets, no logos, no readable fake text.",
+    slug: "future-tech",
+    name: "未来科技",
+    palette: ["#0097A7", "#00D4D8", "#2F80ED", "#7C4DFF", "#03122B"],
+    best_for: ["AI 发布会", "科技产品", "创新方案"],
+    visual_direction:
+      "深色空间、蓝绿霓虹、芯片平台和玻璃拟态卡片，适合 AI 产品发布和未来科技叙事。",
+    raster_layers: ["深色宇宙科技背景", "AI 芯片平台主视觉", "蓝绿霓虹光轨"],
+    transparent_assets: ["玻璃拟态产品卡片", "芯片和光效装饰", "科技图标组"],
+    editable_layers: ["发布会标题", "产品卖点", "功能卡片文字", "时间地点", "图表标签"],
+    prompt_seed:
+      "future technology PowerPoint direction, dark cinematic AI product launch, cyan neon glow, holographic chip platform, glassmorphism cards, premium tech conference mood",
   },
 ];
 
@@ -80,40 +95,100 @@ function usage() {
     "Usage:",
     "  node build_style_candidates.js --output-dir /absolute/path/style-candidates --topic \"deck topic\"",
     "",
-    "Writes five SVG style boards and style-candidates.md.",
+    "Writes a real-image prompt packet: style-candidate-spec.json, style-candidates.md, and five prompt files.",
+    "The tool does not create SVG mockups or combined overview images.",
   ].join("\n");
 }
 
-function escape_xml(value) {
-  return String(value)
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/\"/g, "&quot;");
+function ensure_directory(directory_path) {
+  fs.mkdirSync(directory_path, { recursive: true });
 }
 
-function build_svg(candidate, topic) {
-  return `<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
-  <rect width="1280" height="720" fill="${candidate.background}"/>
-  <rect x="58" y="70" width="104" height="12" fill="${candidate.accent2}"/>
-  <text x="58" y="145" font-family="Arial, sans-serif" font-size="42" font-weight="700" fill="${candidate.foreground}">${escape_xml(candidate.name)}</text>
-  <text x="58" y="192" font-family="Arial, sans-serif" font-size="22" fill="${candidate.foreground}" opacity="0.72">${escape_xml(topic)}</text>
-  <rect x="58" y="265" width="305" height="245" rx="10" fill="#FFFFFF" opacity="0.78" stroke="${candidate.accent}" stroke-width="2"/>
-  <rect x="405" y="245" width="360" height="285" rx="10" fill="#FFFFFF" opacity="0.55" stroke="${candidate.accent2}" stroke-width="2"/>
-  <rect x="820" y="155" width="330" height="410" rx="12" fill="#FFFFFF" opacity="0.66" stroke="${candidate.accent}" stroke-width="2"/>
-  <circle cx="122" cy="345" r="34" fill="${candidate.accent}"/>
-  <circle cx="210" cy="345" r="34" fill="${candidate.accent2}"/>
-  <circle cx="298" cy="345" r="34" fill="${candidate.foreground}" opacity="0.85"/>
-  <rect x="455" y="438" width="42" height="58" fill="${candidate.accent}"/>
-  <rect x="525" y="388" width="42" height="108" fill="${candidate.accent2}"/>
-  <rect x="595" y="335" width="42" height="161" fill="${candidate.accent}"/>
-  <line x1="860" y1="255" x2="1090" y2="255" stroke="${candidate.accent}" stroke-width="5"/>
-  <line x1="860" y1="330" x2="1040" y2="330" stroke="${candidate.accent2}" stroke-width="5"/>
-  <line x1="860" y1="405" x2="1115" y2="405" stroke="${candidate.foreground}" stroke-width="5" opacity="0.55"/>
-  <text x="58" y="630" font-family="Arial, sans-serif" font-size="18" fill="${candidate.foreground}" opacity="0.68">style board / cover rhythm / chart language / transparent asset direction</text>
-</svg>
-`;
+function build_prompt(candidate, topic) {
+  return [
+    `Codex image generation prompt for ${candidate.name}.`,
+    "",
+    `Create a single independent 16:9 PNG style sample for a PowerPoint deck about: ${topic}.`,
+    `Visual direction: ${candidate.prompt_seed}.`,
+    "Show the design mood as a realistic slide design sample: background atmosphere, cover composition, content-page rhythm, chart language, palette, and how transparent visual assets would be layered.",
+    "Do not bake readable slide text, real chart numbers, logos, watermarks, UI labels, or paragraph copy into the image.",
+    "Use abstract unreadable micro-text only where typography texture is needed.",
+    "Leave clean areas where editable PPT text, editable charts, and editable labels can be placed later.",
+    "Avoid SVG-like flat vector construction. Make it look like a polished AI-generated presentation design reference.",
+    `Palette: ${candidate.palette.join(", ")}.`,
+    `Transparent assets to generate separately later: ${candidate.transparent_assets.join(", ")}.`,
+    "Output should be a single polished raster image, not a contact sheet, not a collage of five styles.",
+  ].join("\n");
+}
+
+function build_candidate(candidate, topic) {
+  const prompt_file = `prompts/style-sample-${candidate.slug}.md`;
+  return {
+    slug: candidate.slug,
+    name: candidate.name,
+    sample_image_path: `generated/style-sample-${candidate.slug}.png`,
+    prompt_file,
+    image_generation_prompt: build_prompt(candidate, topic),
+    palette: candidate.palette,
+    best_for: candidate.best_for,
+    visual_direction: candidate.visual_direction,
+    raster_layers: candidate.raster_layers,
+    transparent_assets: candidate.transparent_assets,
+    editable_layers: candidate.editable_layers,
+    ppt_layering_contract:
+      "Generated raster images provide background mood and visual texture only; titles, body copy, charts, labels, numbers, and key annotations must remain editable PPT objects layered above the image.",
+  };
+}
+
+function write_prompt_file(output_dir, candidate) {
+  const prompt_path = path.join(output_dir, candidate.prompt_file);
+  ensure_directory(path.dirname(prompt_path));
+  fs.writeFileSync(prompt_path, `${candidate.image_generation_prompt}\n`, "utf8");
+}
+
+function write_markdown(output_dir, topic, candidates) {
+  const lines = [
+    "# PPT 风格候选生图提示包",
+    "",
+    `主题：${topic}`,
+    "",
+    "硬规则：必须通过 Codex 生图生成 5 张独立 PNG，一张图只代表一个风格；不得使用 SVG 拼凑、网页样式、脚本形状或截图假装真实图片；最终 PPT 中正文、标题、图表、标签要保持文本可编辑。",
+    "",
+    "使用方式：",
+    "",
+    "1. 打开每个 `prompts/style-sample-*.md`。",
+    "2. 逐条调用 Codex 生图能力，生成对应的 PNG。",
+    "3. 把生成结果保存到 `generated/style-sample-*.png`。",
+    "4. 让用户从 5 张单独图片里选择风格。",
+    "5. 被选中的方向进入逐页 PPT 生产，背景和装饰可用图片层，关键文字和图表必须用可编辑层。",
+    "",
+  ];
+  for (const candidate of candidates) {
+    lines.push(`## ${candidate.name}`);
+    lines.push("");
+    lines.push(`- 样张路径：\`${candidate.sample_image_path}\``);
+    lines.push(`- 提示词：\`${candidate.prompt_file}\``);
+    lines.push(`- 适合场景：${candidate.best_for.join("、")}`);
+    lines.push(`- 视觉方向：${candidate.visual_direction}`);
+    lines.push(`- 透明素材：${candidate.transparent_assets.join("、")}`);
+    lines.push(`- 可编辑层：${candidate.editable_layers.join("、")}`);
+    lines.push("");
+  }
+  fs.writeFileSync(path.join(output_dir, "style-candidates.md"), `${lines.join("\n")}\n`, "utf8");
+}
+
+function write_spec(output_dir, topic, candidates) {
+  const spec = {
+    topic,
+    candidate_count: candidates.length,
+    delivery_contract: "five_independent_real_image_pngs",
+    image_sample_rule:
+      "Generate five separate PNG files with Codex image generation. Do not replace them with SVG mockups or one combined overview.",
+    ppt_contract:
+      "Use raster images for background mood and transparent visual assets; keep slide text, charts, labels, and key numbers editable in PPT.",
+    candidates,
+  };
+  fs.writeFileSync(path.join(output_dir, "style-candidate-spec.json"), `${JSON.stringify(spec, null, 2)}\n`, "utf8");
 }
 
 function main() {
@@ -132,27 +207,27 @@ function main() {
     console.error(`missing --output-dir\n\n${usage()}`);
     process.exit(1);
   }
+
   const output_dir = path.resolve(args.output_dir);
-  const topic = args.topic || "Visual PPT deck";
-  fs.mkdirSync(output_dir, { recursive: true });
-  const markdown_lines = ["# 5 套风格候选", ""];
+  const topic = args.topic || "视觉型 PPT 方案";
+  ensure_directory(output_dir);
+
+  const candidates = candidate_templates.map((candidate) => build_candidate(candidate, topic));
   for (const candidate of candidates) {
-    const file_name = `style-board-${candidate.slug}.svg`;
-    fs.writeFileSync(path.join(output_dir, file_name), build_svg(candidate, topic), "utf8");
-    markdown_lines.push(`## ${candidate.name}`);
-    markdown_lines.push("");
-    markdown_lines.push(`- 候选图：\`${file_name}\``);
-    markdown_lines.push(`- 生图 prompt：\`${candidate.prompt}\``);
-    markdown_lines.push("- 验收：应能一眼看出封面节奏、内容页结构、图表语言和透明素材使用方向。");
-    markdown_lines.push("");
+    write_prompt_file(output_dir, candidate);
   }
-  fs.writeFileSync(path.join(output_dir, "style-candidates.md"), `${markdown_lines.join("\n")}\n`, "utf8");
+  write_spec(output_dir, topic, candidates);
+  write_markdown(output_dir, topic, candidates);
+
   console.log(
     JSON.stringify(
       {
         ok: true,
         output_dir,
         candidate_count: candidates.length,
+        delivery_contract: "five_independent_real_image_pngs",
+        spec: path.join(output_dir, "style-candidate-spec.json"),
+        prompts: candidates.map((candidate) => path.join(output_dir, candidate.prompt_file)),
       },
       null,
       2
