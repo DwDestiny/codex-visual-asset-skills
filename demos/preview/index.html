@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Codex Pet Asset Skills Demo</title>
+  <style>
+    :root { color-scheme: light; font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    body { margin: 0; background: #f6f3ee; color: #1f2933; }
+    main { max-width: 1120px; margin: 0 auto; padding: 36px 20px 48px; }
+    h1 { font-size: 32px; margin: 0 0 10px; }
+    h2 { font-size: 22px; margin-top: 34px; }
+    p { line-height: 1.6; color: #52606d; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px; }
+    .card { background: #ffffff; border: 1px solid #ded7cd; border-radius: 8px; padding: 14px; }
+    .checker {
+      min-height: 220px; display: grid; place-items: center; border-radius: 6px;
+      background-color: #fff;
+      background-image: linear-gradient(45deg, #d8dee9 25%, transparent 25%),
+        linear-gradient(-45deg, #d8dee9 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, #d8dee9 75%),
+        linear-gradient(-45deg, transparent 75%, #d8dee9 75%);
+      background-size: 24px 24px;
+      background-position: 0 0, 0 12px, 12px -12px, -12px 0;
+    }
+    img { max-width: 100%; max-height: 260px; object-fit: contain; }
+    code { background: #eef2f6; padding: 2px 5px; border-radius: 4px; }
+  </style>
+</head>
+<body>
+<main>
+  <h1>Codex Pet Asset Skills Demo</h1>
+  <p>Transparent PNG assets and a waving animation generated with the repository scripts.</p>
+  <h2>Transparent Assets</h2>
+  <div class="grid">
+    <div class="card"><div class="checker"><img src="../transparent-assets/line-art-designer.png" alt="line art designer"></div><p><code>line-art-designer.png</code></p></div>
+    <div class="card"><div class="checker"><img src="../transparent-assets/pixel-heroine.png" alt="pixel heroine"></div><p><code>pixel-heroine.png</code></p></div>
+    <div class="card"><div class="checker"><img src="../transparent-assets/neon-developer.png" alt="neon developer"></div><p><code>neon-developer.png</code></p></div>
+    <div class="card"><div class="checker"><img src="../transparent-assets/watercolor-muse.png" alt="watercolor muse"></div><p><code>watercolor-muse.png</code></p></div>
+  </div>
+  <h2>Animation Sprite Set</h2>
+  <div class="grid">
+    <div class="card"><div class="checker"><img src="../animation-sprite-set/qa/waving.gif" alt="waving gif"></div><p><code>waving.gif</code></p></div>
+    <div class="card"><div class="checker"><img src="../animation-sprite-set/waving-atlas.png" alt="waving atlas"></div><p><code>waving-atlas.png</code></p></div>
+  </div>
+</main>
+</body>
+</html>

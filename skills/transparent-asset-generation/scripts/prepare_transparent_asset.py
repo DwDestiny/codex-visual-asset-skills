@@ -56,10 +56,11 @@ def remove_background(
         for x_index in range(rgba_image.width):
             red, green, blue, alpha = pixels[x_index, y_index]
             if alpha == 0:
+                pixels[x_index, y_index] = (0, 0, 0, 0)
                 transparent_pixels += 1
                 continue
             if color_distance((red, green, blue), background_rgb) <= threshold:
-                pixels[x_index, y_index] = (red, green, blue, 0)
+                pixels[x_index, y_index] = (0, 0, 0, 0)
                 transparent_pixels += 1
             else:
                 opaque_pixels += 1
@@ -68,7 +69,7 @@ def remove_background(
 
 
 def trim_image(image: Image.Image, padding: int) -> Image.Image:
-    bbox = image.getbbox()
+    bbox = image.getchannel("A").getbbox()
     if bbox is None:
         return image
     left, top, right, bottom = bbox

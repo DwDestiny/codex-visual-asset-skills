@@ -1,0 +1,17 @@
+{
+  "ok": true,
+  "input": "/Users/dw/Desktop/codex-pet-asset-skills/demos/source/wave_source_03.png",
+  "output": "/Users/dw/Desktop/codex-pet-asset-skills/demos/animation-sprite-set/frames/wave_03.png",
+  "background_rgb": [
+    0,
+    255,
+    0
+  ],
+  "threshold": 18.0,
+  "trimmed": true,
+  "padding": 12,
+  "width": 336,
+  "height": 367,
+  "transparent_pixels": 196103,
+  "opaque_pixels": 66041
+}

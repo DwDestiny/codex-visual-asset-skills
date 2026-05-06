@@ -1,0 +1,17 @@
+{
+  "ok": true,
+  "input": "/Users/dw/Desktop/codex-pet-asset-skills/demos/source/line-art-designer-source.png",
+  "output": "/Users/dw/Desktop/codex-pet-asset-skills/demos/transparent-assets/line-art-designer.png",
+  "background_rgb": [
+    255,
+    0,
+    255
+  ],
+  "threshold": 18.0,
+  "trimmed": true,
+  "padding": 12,
+  "width": 328,
+  "height": 371,
+  "transparent_pixels": 196083,
+  "opaque_pixels": 66061
+}

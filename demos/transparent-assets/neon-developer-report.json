@@ -1,0 +1,17 @@
+{
+  "ok": true,
+  "input": "/Users/dw/Desktop/codex-pet-asset-skills/demos/source/neon-developer-source.png",
+  "output": "/Users/dw/Desktop/codex-pet-asset-skills/demos/transparent-assets/neon-developer.png",
+  "background_rgb": [
+    255,
+    0,
+    255
+  ],
+  "threshold": 18.0,
+  "trimmed": true,
+  "padding": 12,
+  "width": 328,
+  "height": 398,
+  "transparent_pixels": 180211,
+  "opaque_pixels": 81933
+}

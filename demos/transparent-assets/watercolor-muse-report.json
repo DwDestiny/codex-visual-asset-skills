@@ -1,0 +1,17 @@
+{
+  "ok": true,
+  "input": "/Users/dw/Desktop/codex-pet-asset-skills/demos/source/watercolor-muse-source.png",
+  "output": "/Users/dw/Desktop/codex-pet-asset-skills/demos/transparent-assets/watercolor-muse.png",
+  "background_rgb": [
+    0,
+    255,
+    0
+  ],
+  "threshold": 18.0,
+  "trimmed": true,
+  "padding": 12,
+  "width": 328,
+  "height": 467,
+  "transparent_pixels": 159179,
+  "opaque_pixels": 102965
+}

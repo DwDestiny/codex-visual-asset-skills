@@ -1,0 +1,17 @@
+{
+  "ok": true,
+  "input": "/Users/dw/Desktop/codex-pet-asset-skills/demos/source/pixel-heroine-source.png",
+  "output": "/Users/dw/Desktop/codex-pet-asset-skills/demos/transparent-assets/pixel-heroine.png",
+  "background_rgb": [
+    0,
+    255,
+    0
+  ],
+  "threshold": 18.0,
+  "trimmed": true,
+  "padding": 12,
+  "width": 265,
+  "height": 345,
+  "transparent_pixels": 199920,
+  "opaque_pixels": 62224
+}

@@ -56,7 +56,7 @@ class transparent_asset_generation_tests(unittest.TestCase):
             self.assertEqual(output.mode, "RGBA")
             self.assertLess(output.width, 64)
             self.assertLess(output.height, 64)
-            self.assertEqual(output.getpixel((0, 0))[3], 0)
+            self.assertEqual(output.getpixel((0, 0)), (0, 0, 0, 0))
             self.assertGreater(output.getpixel((output.width // 2, output.height // 2))[3], 240)
 
             report = json.loads(report_path.read_text(encoding="utf-8"))

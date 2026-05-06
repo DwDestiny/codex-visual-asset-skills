@@ -1,0 +1,37 @@
+{
+  "ok": true,
+  "manifest": "/Users/dw/Desktop/codex-pet-asset-skills/demos/animation-sprite-set/manifest.json",
+  "atlas": {
+    "path": "/Users/dw/Desktop/codex-pet-asset-skills/demos/animation-sprite-set/waving-atlas.png",
+    "width": 1152,
+    "height": 208,
+    "columns": 6,
+    "rows": 1,
+    "cell_width": 192,
+    "cell_height": 208
+  },
+  "states": [
+    {
+      "name": "waving",
+      "row": 0,
+      "frame_count": 6,
+      "durations_ms": [
+        140,
+        120,
+        140,
+        120,
+        160,
+        180
+      ],
+      "nontransparent_pixels": [
+        25165,
+        25741,
+        25463,
+        25741,
+        25165,
+        25337
+      ]
+    }
+  ],
+  "gif": true
+}

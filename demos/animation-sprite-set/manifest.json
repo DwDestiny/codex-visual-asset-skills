@@ -1,0 +1,27 @@
+{
+  "cell_width": 192,
+  "cell_height": 208,
+  "columns": 6,
+  "states": [
+    {
+      "name": "waving",
+      "row": 0,
+      "frames": [
+        "wave_00.png",
+        "wave_01.png",
+        "wave_02.png",
+        "wave_03.png",
+        "wave_04.png",
+        "wave_05.png"
+      ],
+      "durations_ms": [
+        140,
+        120,
+        140,
+        120,
+        160,
+        180
+      ]
+    }
+  ]
+}
