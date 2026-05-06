@@ -149,6 +149,22 @@ function add_title(slide, theme, title, options = {}) {
   });
 }
 
+function add_claim(slide, theme, claim, options = {}) {
+  if (!claim) return;
+  slide.addText(String(claim), {
+    x: options.x || 0.76,
+    y: options.y || 1.3,
+    w: options.w || 10.4,
+    h: options.h || 0.64,
+    fontFace: theme.font_face,
+    fontSize: options.font_size || 12.5,
+    bold: true,
+    color: options.color || theme.accent,
+    margin: 0,
+    fit: "shrink",
+  });
+}
+
 function add_body(slide, theme, body, box) {
   if (!body) return;
   slide.addText(String(body), {
@@ -161,6 +177,21 @@ function add_body(slide, theme, body, box) {
     color: box.color || theme.muted,
     valign: "top",
     breakLine: false,
+    margin: 0,
+    fit: "shrink",
+  });
+}
+
+function add_source_note(slide, theme, source) {
+  if (!source) return;
+  slide.addText(String(source), {
+    x: 0.76,
+    y: 6.98,
+    w: 8.9,
+    h: 0.16,
+    fontFace: theme.font_face,
+    fontSize: 6.5,
+    color: theme.muted,
     margin: 0,
     fit: "shrink",
   });
@@ -244,10 +275,10 @@ function add_title_slide(pptx, theme, slide_data, slide_index, total_slides) {
     radius: 0.18,
   });
   const panel_steps = [
-    ["01", "Topic"],
-    ["02", "Style"],
-    ["03", "Assets"],
-    ["04", "PPTX"],
+    ["01", "确定主题"],
+    ["02", "选择风格"],
+    ["03", "生成素材"],
+    ["04", "交付文件"],
   ];
   panel_steps.forEach((step, index) => {
     const y_position = 1.35 + index * 0.83;
@@ -290,7 +321,7 @@ function add_title_slide(pptx, theme, slide_data, slide_index, total_slides) {
     h: 2.42,
     line: { color: theme.accent, pt: 1.2, transparency: 28 },
   });
-  slide.addText(slide_data.kicker || "Visual deck system", {
+  slide.addText(slide_data.kicker || "视觉化交付系统", {
     x: 8.38,
     y: 5.15,
     w: 3.1,
@@ -309,9 +340,10 @@ function add_content_slide(pptx, theme, slide_data, slide_index, total_slides) {
   const slide = pptx.addSlide();
   add_background(slide, theme, slide_data);
   add_title(slide, theme, slide_data.title);
+  add_claim(slide, theme, slide_data.claim, { y: 1.28, w: 6.3 });
   add_body(slide, theme, slide_data.body || "", {
     x: 0.76,
-    y: 1.55,
+    y: slide_data.claim ? 2.04 : 1.55,
     w: 5.45,
     h: 1.2,
     font_size: 14,
@@ -332,6 +364,7 @@ function add_content_slide(pptx, theme, slide_data, slide_index, total_slides) {
     fill: { color: theme.panel, transparency: 7 },
     line: { color: theme.accent, transparency: 58 },
   });
+  add_source_note(slide, theme, slide_data.source);
   add_footer(slide, theme, slide_index, total_slides);
 }
 
@@ -339,9 +372,10 @@ function add_image_text_slide(pptx, theme, slide_data, spec_dir, slide_index, to
   const slide = pptx.addSlide();
   add_background(slide, theme, slide_data);
   add_title(slide, theme, slide_data.title);
+  add_claim(slide, theme, slide_data.claim, { y: 1.28, w: 6.05 });
   add_body(slide, theme, slide_data.body || "", {
     x: 0.76,
-    y: 1.55,
+    y: slide_data.claim ? 2.04 : 1.55,
     w: 5.35,
     h: 1.1,
     font_size: 14,
@@ -368,6 +402,7 @@ function add_image_text_slide(pptx, theme, slide_data, spec_dir, slide_index, to
     w: 4.75,
     h: 4.45,
   });
+  add_source_note(slide, theme, slide_data.source);
   add_footer(slide, theme, slide_index, total_slides);
 }
 
@@ -375,9 +410,10 @@ function add_bar_chart_slide(pptx, theme, slide_data, slide_index, total_slides)
   const slide = pptx.addSlide();
   add_background(slide, theme, slide_data);
   add_title(slide, theme, slide_data.title);
+  add_claim(slide, theme, slide_data.claim, { y: 1.22, w: 10.2 });
   add_body(slide, theme, slide_data.body || "", {
     x: 0.76,
-    y: 1.45,
+    y: slide_data.claim ? 1.98 : 1.45,
     w: 10.6,
     h: 0.55,
     font_size: 13,
@@ -441,6 +477,7 @@ function add_bar_chart_slide(pptx, theme, slide_data, slide_index, total_slides)
       fit: "shrink",
     });
   });
+  add_source_note(slide, theme, chart.source || slide_data.source);
   add_footer(slide, theme, slide_index, total_slides);
 }
 
@@ -448,6 +485,7 @@ function add_comparison_slide(pptx, theme, slide_data, slide_index, total_slides
   const slide = pptx.addSlide();
   add_background(slide, theme, slide_data);
   add_title(slide, theme, slide_data.title);
+  add_claim(slide, theme, slide_data.claim, { y: 1.24, w: 10.2 });
   const items = Array.isArray(slide_data.items) ? slide_data.items : [];
   const item_count = Math.max(items.length, 1);
   const card_w = Math.min(3.55, 10.9 / item_count - 0.2);
@@ -482,6 +520,7 @@ function add_comparison_slide(pptx, theme, slide_data, slide_index, total_slides
       color: theme.muted,
     });
   });
+  add_source_note(slide, theme, slide_data.source);
   add_footer(slide, theme, slide_index, total_slides);
 }
 
@@ -489,6 +528,7 @@ function add_timeline_slide(pptx, theme, slide_data, slide_index, total_slides) 
   const slide = pptx.addSlide();
   add_background(slide, theme, slide_data);
   add_title(slide, theme, slide_data.title);
+  add_claim(slide, theme, slide_data.claim, { y: 1.24, w: 10.2 });
   const steps = Array.isArray(slide_data.steps) ? slide_data.steps : [];
   slide.addShape("line", {
     x: 1.12,
@@ -529,6 +569,272 @@ function add_timeline_slide(pptx, theme, slide_data, slide_index, total_slides) 
       color: theme.muted,
     });
   });
+  add_source_note(slide, theme, slide_data.source);
+  add_footer(slide, theme, slide_index, total_slides);
+}
+
+function add_executive_summary_slide(pptx, theme, slide_data, slide_index, total_slides) {
+  const slide = pptx.addSlide();
+  add_background(slide, theme, slide_data);
+  add_title(slide, theme, slide_data.title);
+  add_claim(slide, theme, slide_data.claim, { y: 1.24, w: 10.4 });
+  const points = Array.isArray(slide_data.points) ? slide_data.points : [];
+  points.slice(0, 3).forEach((point, index) => {
+    const x_position = 0.82 + index * 4.05;
+    slide.addShape("rect", {
+      x: x_position,
+      y: 2.05,
+      w: 3.55,
+      h: 3.6,
+      fill: { color: theme.panel, transparency: 3 },
+      line: { color: index % 2 === 0 ? theme.accent : theme.accent_2, transparency: 40 },
+    });
+    slide.addText(String(point.label || `0${index + 1}`), {
+      x: x_position + 0.28,
+      y: 2.34,
+      w: 0.65,
+      h: 0.28,
+      fontFace: theme.font_face,
+      fontSize: 10,
+      bold: true,
+      color: index % 2 === 0 ? theme.accent : theme.accent_2,
+      margin: 0,
+    });
+    slide.addText(String(point.title || ""), {
+      x: x_position + 0.28,
+      y: 2.82,
+      w: 2.82,
+      h: 0.62,
+      fontFace: theme.font_face,
+      fontSize: 16,
+      bold: true,
+      color: theme.foreground,
+      margin: 0,
+      fit: "shrink",
+    });
+    add_body(slide, theme, point.body || "", {
+      x: x_position + 0.28,
+      y: 3.68,
+      w: 2.9,
+      h: 1.25,
+      font_size: 11.5,
+      color: theme.muted,
+    });
+  });
+  add_source_note(slide, theme, slide_data.source);
+  add_footer(slide, theme, slide_index, total_slides);
+}
+
+function add_architecture_slide(pptx, theme, slide_data, slide_index, total_slides) {
+  const slide = pptx.addSlide();
+  add_background(slide, theme, slide_data);
+  add_title(slide, theme, slide_data.title);
+  add_claim(slide, theme, slide_data.claim, { y: 1.24, w: 10.4 });
+  const layers = Array.isArray(slide_data.layers) ? slide_data.layers : [];
+  layers.slice(0, 4).forEach((layer, index) => {
+    const y_position = 2.0 + index * 1.02;
+    slide.addShape("rect", {
+      x: 1.0,
+      y: y_position,
+      w: 10.9,
+      h: 0.72,
+      fill: { color: index % 2 === 0 ? theme.panel : theme.background, transparency: index % 2 === 0 ? 2 : 0 },
+      line: { color: index % 2 === 0 ? theme.accent : theme.accent_2, transparency: 35 },
+    });
+    slide.addText(String(layer.title || ""), {
+      x: 1.26,
+      y: y_position + 0.18,
+      w: 2.2,
+      h: 0.22,
+      fontFace: theme.font_face,
+      fontSize: 12.5,
+      bold: true,
+      color: theme.foreground,
+      margin: 0,
+      fit: "shrink",
+    });
+    slide.addText(String(layer.body || ""), {
+      x: 3.72,
+      y: y_position + 0.16,
+      w: 7.6,
+      h: 0.26,
+      fontFace: theme.font_face,
+      fontSize: 10.5,
+      color: theme.muted,
+      margin: 0,
+      fit: "shrink",
+    });
+  });
+  add_source_note(slide, theme, slide_data.source);
+  add_footer(slide, theme, slide_index, total_slides);
+}
+
+function add_metrics_slide(pptx, theme, slide_data, slide_index, total_slides) {
+  const slide = pptx.addSlide();
+  add_background(slide, theme, slide_data);
+  add_title(slide, theme, slide_data.title);
+  add_claim(slide, theme, slide_data.claim, { y: 1.22, w: 10.2 });
+  const metrics = Array.isArray(slide_data.metrics) ? slide_data.metrics : [];
+  metrics.slice(0, 4).forEach((metric, index) => {
+    const x_position = 0.86 + index * 3.05;
+    slide.addText(String(metric.value || ""), {
+      x: x_position,
+      y: 2.35,
+      w: 2.4,
+      h: 0.58,
+      fontFace: theme.font_face,
+      fontSize: 24,
+      bold: true,
+      color: index % 2 === 0 ? theme.accent : theme.accent_2,
+      margin: 0,
+      fit: "shrink",
+    });
+    slide.addText(String(metric.label || ""), {
+      x: x_position,
+      y: 3.0,
+      w: 2.35,
+      h: 0.28,
+      fontFace: theme.font_face,
+      fontSize: 10.5,
+      bold: true,
+      color: theme.foreground,
+      margin: 0,
+      fit: "shrink",
+    });
+    add_body(slide, theme, metric.body || "", {
+      x: x_position,
+      y: 3.42,
+      w: 2.35,
+      h: 0.75,
+      font_size: 9.5,
+      color: theme.muted,
+    });
+  });
+  if (slide_data.chart) {
+    const chart = slide_data.chart;
+    const labels = Array.isArray(chart.labels) ? chart.labels : [];
+    const values = Array.isArray(chart.values) ? chart.values.map(Number) : [];
+    const max_value = Math.max(...values, 1);
+    labels.forEach((label, index) => {
+      const x_position = 1.05 + index * 2.1;
+      const bar_h = (values[index] / max_value) * 1.05;
+      slide.addShape("rect", {
+        x: x_position,
+        y: 5.75 - bar_h,
+        w: 1.15,
+        h: bar_h,
+        fill: { color: index % 2 === 0 ? theme.accent : theme.accent_2 },
+        line: { color: theme.background, transparency: 100 },
+      });
+      slide.addText(String(label), {
+        x: x_position - 0.18,
+        y: 5.9,
+        w: 1.5,
+        h: 0.2,
+        fontFace: theme.font_face,
+        fontSize: 8.5,
+        color: theme.muted,
+        align: "center",
+        margin: 0,
+        fit: "shrink",
+      });
+    });
+  }
+  add_source_note(slide, theme, slide_data.source || (slide_data.chart && slide_data.chart.source));
+  add_footer(slide, theme, slide_index, total_slides);
+}
+
+function add_roadmap_slide(pptx, theme, slide_data, slide_index, total_slides) {
+  const slide = pptx.addSlide();
+  add_background(slide, theme, slide_data);
+  add_title(slide, theme, slide_data.title);
+  add_claim(slide, theme, slide_data.claim, { y: 1.24, w: 10.2 });
+  const phases = Array.isArray(slide_data.phases) ? slide_data.phases : [];
+  phases.slice(0, 4).forEach((phase, index) => {
+    const x_position = 0.86 + index * 3.05;
+    slide.addShape("rect", {
+      x: x_position,
+      y: 2.15,
+      w: 2.55,
+      h: 3.7,
+      fill: { color: theme.panel, transparency: 5 },
+      line: { color: index % 2 === 0 ? theme.accent : theme.accent_2, transparency: 35 },
+    });
+    slide.addText(String(phase.period || `Phase ${index + 1}`), {
+      x: x_position + 0.2,
+      y: 2.44,
+      w: 2.0,
+      h: 0.22,
+      fontFace: theme.font_face,
+      fontSize: 9.5,
+      bold: true,
+      color: index % 2 === 0 ? theme.accent : theme.accent_2,
+      margin: 0,
+    });
+    slide.addText(String(phase.title || ""), {
+      x: x_position + 0.2,
+      y: 2.86,
+      w: 2.05,
+      h: 0.45,
+      fontFace: theme.font_face,
+      fontSize: 13,
+      bold: true,
+      color: theme.foreground,
+      margin: 0,
+      fit: "shrink",
+    });
+    add_body(slide, theme, phase.body || "", {
+      x: x_position + 0.2,
+      y: 3.58,
+      w: 2.05,
+      h: 1.3,
+      font_size: 9.8,
+      color: theme.muted,
+    });
+  });
+  add_source_note(slide, theme, slide_data.source);
+  add_footer(slide, theme, slide_index, total_slides);
+}
+
+function add_risk_next_steps_slide(pptx, theme, slide_data, slide_index, total_slides) {
+  const slide = pptx.addSlide();
+  add_background(slide, theme, slide_data);
+  add_title(slide, theme, slide_data.title);
+  add_claim(slide, theme, slide_data.claim, { y: 1.24, w: 10.2 });
+  const risks = Array.isArray(slide_data.risks) ? slide_data.risks : [];
+  const actions = Array.isArray(slide_data.actions) ? slide_data.actions : [];
+  slide.addText("主要风险", {
+    x: 0.9,
+    y: 2.02,
+    w: 4.6,
+    h: 0.28,
+    fontFace: theme.font_face,
+    fontSize: 14,
+    bold: true,
+    color: theme.foreground,
+    margin: 0,
+  });
+  slide.addText("下一步动作", {
+    x: 6.85,
+    y: 2.02,
+    w: 4.6,
+    h: 0.28,
+    fontFace: theme.font_face,
+    fontSize: 14,
+    bold: true,
+    color: theme.foreground,
+    margin: 0,
+  });
+  add_bullets(slide, theme, risks, { x: 0.95, y: 2.55, w: 4.8, h: 3.1, font_size: 12 });
+  add_bullets(slide, theme, actions, { x: 6.9, y: 2.55, w: 4.8, h: 3.1, font_size: 12 });
+  slide.addShape("line", {
+    x: 6.28,
+    y: 2.0,
+    w: 0,
+    h: 3.9,
+    line: { color: theme.accent, pt: 1.2, transparency: 45 },
+  });
+  add_source_note(slide, theme, slide_data.source);
   add_footer(slide, theme, slide_index, total_slides);
 }
 
@@ -573,6 +879,16 @@ function add_slide_by_layout(pptx, theme, slide_data, spec_dir, slide_index, tot
     add_comparison_slide(pptx, theme, slide_data, slide_index, total_slides);
   } else if (layout === "timeline") {
     add_timeline_slide(pptx, theme, slide_data, slide_index, total_slides);
+  } else if (layout === "executive_summary") {
+    add_executive_summary_slide(pptx, theme, slide_data, slide_index, total_slides);
+  } else if (layout === "architecture") {
+    add_architecture_slide(pptx, theme, slide_data, slide_index, total_slides);
+  } else if (layout === "metrics") {
+    add_metrics_slide(pptx, theme, slide_data, slide_index, total_slides);
+  } else if (layout === "roadmap") {
+    add_roadmap_slide(pptx, theme, slide_data, slide_index, total_slides);
+  } else if (layout === "risk_next_steps") {
+    add_risk_next_steps_slide(pptx, theme, slide_data, slide_index, total_slides);
   } else if (layout === "closing" || layout === "section") {
     add_closing_slide(pptx, theme, slide_data, slide_index, total_slides);
   } else {

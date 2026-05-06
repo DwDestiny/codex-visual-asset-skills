@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+<rect x="0" y="0" width="1280" height="720" fill="#F5F6F3"/>
+<rect x="0" y="0" width="12" height="720" fill="#1F8A70"/>
+<text x="70" y="86" font-family="Aptos" font-size="40" font-weight="800" fill="#17202A"><tspan x="70" dy="0">工具路线对比：先买治理能力</tspan></text>
+<text x="72" y="158" font-family="Aptos" font-size="23" font-weight="700" fill="#1F8A70"><tspan x="72" dy="0">企业优先买治理能力，再看单点体验。</tspan></text>
+<rect x="95" y="230" width="330" height="300" fill="#FFFFFF" stroke="#1F8A70" stroke-width="2" rx="10"/>
+<text x="123" y="300" font-family="Aptos" font-size="30" font-weight="700" fill="#17202A"><tspan x="123" dy="0">个人插件路线</tspan></text>
+<text x="123" y="385" font-family="Aptos" font-size="21" font-weight="400" fill="#667085"><tspan x="123" dy="0">启动最快，适合探索；但账号、数</tspan><tspan x="123" dy="28">据边界和采纳统计较难沉淀。</tspan></text>
+<rect x="475" y="230" width="330" height="300" fill="#FFFFFF" stroke="#E76F51" stroke-width="2" rx="10"/>
+<text x="503" y="300" font-family="Aptos" font-size="30" font-weight="700" fill="#17202A"><tspan x="503" dy="0">企业套件路线</tspan></text>
+<text x="503" y="385" font-family="Aptos" font-size="21" font-weight="400" fill="#667085"><tspan x="503" dy="0">适合 90 天试点；重点看策略管</tspan><tspan x="503" dy="28">理、内容排除、使用指标和平台集</tspan><tspan x="503" dy="28">成。</tspan></text>
+<rect x="855" y="230" width="330" height="300" fill="#FFFFFF" stroke="#1F8A70" stroke-width="2" rx="10"/>
+<text x="883" y="300" font-family="Aptos" font-size="30" font-weight="700" fill="#17202A"><tspan x="883" dy="0">自建平台路线</tspan></text>
+<text x="883" y="385" font-family="Aptos" font-size="21" font-weight="400" fill="#667085"><tspan x="883" dy="0">适合强合规或多模型治理；投入更</tspan><tspan x="883" dy="28">高，需要平台团队长期维护。</tspan></text>
+<text x="72" y="680" font-family="Aptos" font-size="13" font-weight="400" fill="#667085">GitHub Copilot 企业文档；公开产品能力观察</text>
+<text x="1140" y="680" font-family="Aptos" font-size="16" font-weight="400" fill="#667085">6/8</text>
+</svg>

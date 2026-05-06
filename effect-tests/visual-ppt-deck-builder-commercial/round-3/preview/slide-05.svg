@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+<rect x="0" y="0" width="1280" height="720" fill="#F5F6F3"/>
+<rect x="0" y="0" width="12" height="720" fill="#1F8A70"/>
+<text x="70" y="86" font-family="Aptos" font-size="40" font-weight="800" fill="#17202A"><tspan x="70" dy="0">价值测算：用保守模型证明可回收</tspan></text>
+<text x="72" y="158" font-family="Aptos" font-size="23" font-weight="700" fill="#1F8A70"><tspan x="72" dy="0">第一阶段验证 5%-8% 净效率改善更可信。</tspan></text>
+<text x="105" y="285" font-family="Aptos" font-size="46" font-weight="800" fill="#1F8A70">5%-8%</text>
+<text x="105" y="335" font-family="Aptos" font-size="22" font-weight="700" fill="#17202A"><tspan x="105" dy="0">净效率目标</tspan></text>
+<text x="105" y="400" font-family="Aptos" font-size="18" font-weight="400" fill="#667085"><tspan x="105" dy="0">只统计进入交付链路的有效节省</tspan><tspan x="105" dy="24">。</tspan></text>
+<text x="390" y="285" font-family="Aptos" font-size="46" font-weight="800" fill="#E76F51">60%</text>
+<text x="390" y="335" font-family="Aptos" font-size="22" font-weight="700" fill="#17202A"><tspan x="390" dy="0">采纳门槛</tspan></text>
+<text x="390" y="400" font-family="Aptos" font-size="18" font-weight="400" fill="#667085"><tspan x="390" dy="0">连续用于真实任务，才计入组织</tspan><tspan x="390" dy="24">采纳。</tspan></text>
+<text x="675" y="285" font-family="Aptos" font-size="46" font-weight="800" fill="#1F8A70">3 类</text>
+<text x="675" y="335" font-family="Aptos" font-size="22" font-weight="700" fill="#17202A"><tspan x="675" dy="0">优先场景</tspan></text>
+<text x="675" y="400" font-family="Aptos" font-size="18" font-weight="400" fill="#667085"><tspan x="675" dy="0">测试生成、代码解释、低风险重</tspan><tspan x="675" dy="24">构。</tspan></text>
+<text x="960" y="285" font-family="Aptos" font-size="46" font-weight="800" fill="#E76F51">90 天</text>
+<text x="960" y="335" font-family="Aptos" font-size="22" font-weight="700" fill="#17202A"><tspan x="960" dy="0">判断周期</tspan></text>
+<text x="960" y="400" font-family="Aptos" font-size="18" font-weight="400" fill="#667085"><tspan x="960" dy="0">三个月形成扩面预算依据。</tspan></text>
+<text x="72" y="680" font-family="Aptos" font-size="13" font-weight="400" fill="#667085">内部测算模型；McKinsey 公开研究</text>
+<text x="1140" y="680" font-family="Aptos" font-size="16" font-weight="400" fill="#667085">5/8</text>
+</svg>

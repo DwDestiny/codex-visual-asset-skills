@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1220" height="1486" viewBox="0 0 1220 1486">
+<rect x="0" y="0" width="1220" height="1486" fill="#FFFFFF"/>
+<text x="52" y="58" font-family="Aptos" font-size="32" font-weight="800" fill="#17202A">AI 编程工具企业落地方案 · 预览总览</text>
+<rect x="52" y="100" width="540" height="304" fill="#F5F6F3" stroke="#CDD5DF" stroke-width="2" rx="10"/>
+<rect x="52" y="100" width="8" height="304" fill="#1F8A70"/>
+<text x="76" y="142" font-family="Aptos" font-size="24" font-weight="800" fill="#17202A">1. AI 编程工具企业落地方案</text>
+<text x="76" y="178" font-family="Aptos" font-size="15" font-weight="700" fill="#1F8A70">title</text>
+
+<text x="76" y="345" font-family="Aptos" font-size="14" font-weight="400" fill="#667085">从个人试用走向组织级接入、治理、度量与扩面</text>
+<rect x="628" y="100" width="540" height="304" fill="#F5F6F3" stroke="#CDD5DF" stroke-width="2" rx="10"/>
+<rect x="628" y="100" width="8" height="304" fill="#1F8A70"/>
+<text x="652" y="142" font-family="Aptos" font-size="24" font-weight="800" fill="#17202A">2. 一页结论：先治理，再扩面</text>
+<text x="652" y="178" font-family="Aptos" font-size="15" font-weight="700" fill="#1F8A70">executive_summary</text>
+<text x="652" y="220" font-family="Aptos" font-size="18" font-weight="700" fill="#17202A">先用治理换规模，再用数据谈预算。</text>
+<text x="652" y="345" font-family="Aptos" font-size="14" font-weight="400" fill="#667085">DORA 2024；Copilot 企业文档；McKinsey 研究</text>
+<rect x="52" y="440" width="540" height="304" fill="#F5F6F3" stroke="#CDD5DF" stroke-width="2" rx="10"/>
+<rect x="52" y="440" width="8" height="304" fill="#1F8A70"/>
+<text x="76" y="482" font-family="Aptos" font-size="24" font-weight="800" fill="#17202A">3. 当前痛点：个人试用难变组织收益</text>
+<text x="76" y="518" font-family="Aptos" font-size="15" font-weight="700" fill="#1F8A70">content</text>
+<text x="76" y="560" font-family="Aptos" font-size="18" font-weight="700" fill="#17202A">个人效率不会自动变成组织收益。</text>
+<text x="76" y="685" font-family="Aptos" font-size="14" font-weight="400" fill="#667085">DORA 2024；McKinsey 生成式 AI 研发生产力研究</text>
+<rect x="628" y="440" width="540" height="304" fill="#F5F6F3" stroke="#CDD5DF" stroke-width="2" rx="10"/>
+<rect x="628" y="440" width="8" height="304" fill="#1F8A70"/>
+<text x="652" y="482" font-family="Aptos" font-size="24" font-weight="800" fill="#17202A">4. 组织级接入架构：工具能力进流程</text>
+<text x="652" y="518" font-family="Aptos" font-size="15" font-weight="700" fill="#1F8A70">architecture</text>
+<text x="652" y="560" font-family="Aptos" font-size="18" font-weight="700" fill="#17202A">AI 编程能力要接入研发系统，而不是只发插件。</text>
+<text x="652" y="685" font-family="Aptos" font-size="14" font-weight="400" fill="#667085">GitHub Copilot 企业文档；研发平台治理经验</text>
+<rect x="52" y="780" width="540" height="304" fill="#F5F6F3" stroke="#CDD5DF" stroke-width="2" rx="10"/>
+<rect x="52" y="780" width="8" height="304" fill="#1F8A70"/>
+<text x="76" y="822" font-family="Aptos" font-size="24" font-weight="800" fill="#17202A">5. 价值测算：用保守模型证明可回收</text>
+<text x="76" y="858" font-family="Aptos" font-size="15" font-weight="700" fill="#1F8A70">metrics</text>
+<text x="76" y="900" font-family="Aptos" font-size="18" font-weight="700" fill="#17202A">第一阶段验证 5%-8% 净效率改善更可信。</text>
+<text x="76" y="1025" font-family="Aptos" font-size="14" font-weight="400" fill="#667085">内部测算模型；McKinsey 公开研究</text>
+<rect x="628" y="780" width="540" height="304" fill="#F5F6F3" stroke="#CDD5DF" stroke-width="2" rx="10"/>
+<rect x="628" y="780" width="8" height="304" fill="#1F8A70"/>
+<text x="652" y="822" font-family="Aptos" font-size="24" font-weight="800" fill="#17202A">6. 工具路线对比：先买治理能力</text>
+<text x="652" y="858" font-family="Aptos" font-size="15" font-weight="700" fill="#1F8A70">comparison</text>
+<text x="652" y="900" font-family="Aptos" font-size="18" font-weight="700" fill="#17202A">企业优先买治理能力，再看单点体验。</text>
+<text x="652" y="1025" font-family="Aptos" font-size="14" font-weight="400" fill="#667085">GitHub Copilot 企业文档；公开产品能力观察</text>
+<rect x="52" y="1120" width="540" height="304" fill="#F5F6F3" stroke="#CDD5DF" stroke-width="2" rx="10"/>
+<rect x="52" y="1120" width="8" height="304" fill="#1F8A70"/>
+<text x="76" y="1162" font-family="Aptos" font-size="24" font-weight="800" fill="#17202A">7. 90 天落地路线：从试点到扩面</text>
+<text x="76" y="1198" font-family="Aptos" font-size="15" font-weight="700" fill="#1F8A70">roadmap</text>
+<text x="76" y="1240" font-family="Aptos" font-size="18" font-weight="700" fill="#17202A">90 天足够形成扩面或收缩决策。</text>
+<text x="76" y="1365" font-family="Aptos" font-size="14" font-weight="400" fill="#667085">企业试点方法；DORA 2024</text>
+<rect x="628" y="1120" width="540" height="304" fill="#F5F6F3" stroke="#CDD5DF" stroke-width="2" rx="10"/>
+<rect x="628" y="1120" width="8" height="304" fill="#1F8A70"/>
+<text x="652" y="1162" font-family="Aptos" font-size="24" font-weight="800" fill="#17202A">8. 风险与下一步：把失控点前置</text>
+<text x="652" y="1198" font-family="Aptos" font-size="15" font-weight="700" fill="#1F8A70">risk_next_steps</text>
+<text x="652" y="1240" font-family="Aptos" font-size="18" font-weight="700" fill="#17202A">最大风险是边界没设计，而不是模型不够强。</text>
+<text x="652" y="1365" font-family="Aptos" font-size="14" font-weight="400" fill="#667085">GitHub Copilot 企业文档；企业安全治理要求</text>
+</svg>

@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+<rect x="0" y="0" width="1280" height="720" fill="#F5F6F3"/>
+<rect x="0" y="0" width="12" height="720" fill="#1F8A70"/>
+<text x="70" y="86" font-family="Aptos" font-size="40" font-weight="800" fill="#17202A"><tspan x="70" dy="0">风险与下一步：把失控点前置</tspan></text>
+<text x="72" y="158" font-family="Aptos" font-size="23" font-weight="700" fill="#1F8A70"><tspan x="72" dy="0">最大风险是边界没设计，而不是模型不够强。</tspan></text>
+<text x="100" y="235" font-family="Aptos" font-size="30" font-weight="700" fill="#17202A">主要风险</text>
+<rect x="105" y="282" width="12" height="12" fill="#E76F51" rx="6"/>
+<text x="133" y="300" font-family="Aptos" font-size="22" font-weight="400" fill="#17202A"><tspan x="133" dy="0">敏感代码或客户数据进入不合适的工具入口。</tspan></text>
+<rect x="105" y="340" width="12" height="12" fill="#E76F51" rx="6"/>
+<text x="133" y="358" font-family="Aptos" font-size="22" font-weight="400" fill="#17202A"><tspan x="133" dy="0">生成代码责任不清，评审和测试被弱化。</tspan></text>
+<rect x="105" y="398" width="12" height="12" fill="#E76F51" rx="6"/>
+<text x="133" y="416" font-family="Aptos" font-size="22" font-weight="400" fill="#17202A"><tspan x="133" dy="0">采购只看账号数，不看真实采纳率和业务指标。</tspan></text>
+<rect x="105" y="456" width="12" height="12" fill="#E76F51" rx="6"/>
+<text x="133" y="474" font-family="Aptos" font-size="22" font-weight="400" fill="#17202A"><tspan x="133" dy="0">提示规范、知识库和工程标准没有同步沉淀。</tspan></text>
+<text x="700" y="235" font-family="Aptos" font-size="30" font-weight="700" fill="#17202A">下一步动作</text>
+<rect x="705" y="282" width="12" height="12" fill="#E76F51" rx="6"/>
+<text x="733" y="300" font-family="Aptos" font-size="22" font-weight="400" fill="#17202A"><tspan x="733" dy="0">本周确定试点团队、仓库范围和三类优先场景。</tspan></text>
+<rect x="705" y="340" width="12" height="12" fill="#E76F51" rx="6"/>
+<text x="733" y="358" font-family="Aptos" font-size="22" font-weight="400" fill="#17202A"><tspan x="733" dy="0">两周内完成企业策略、内容排除和审计口径配置。</tspan></text>
+<rect x="705" y="398" width="12" height="12" fill="#E76F51" rx="6"/>
+<text x="733" y="416" font-family="Aptos" font-size="22" font-weight="400" fill="#17202A"><tspan x="733" dy="0">第一个月建立采纳率、周期、返工和满意度看板。</tspan></text>
+<rect x="705" y="456" width="12" height="12" fill="#E76F51" rx="6"/>
+<text x="733" y="474" font-family="Aptos" font-size="22" font-weight="400" fill="#17202A"><tspan x="733" dy="0">第 90 天输出扩面决策：继续、收缩或转自建治理平</tspan><tspan x="733" dy="30">台。</tspan></text>
+<line x1="640" y1="220" x2="640" y2="555" stroke="#1F8A70" stroke-width="3" opacity="0.45"/>
+<text x="72" y="680" font-family="Aptos" font-size="13" font-weight="400" fill="#667085">GitHub Copilot 企业文档；企业安全治理要求</text>
+<text x="1140" y="680" font-family="Aptos" font-size="16" font-weight="400" fill="#667085">8/8</text>
+</svg>

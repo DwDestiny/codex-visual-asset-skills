@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+<rect x="0" y="0" width="1280" height="720" fill="#F5F6F3"/>
+<rect x="0" y="0" width="12" height="720" fill="#1F8A70"/>
+<text x="70" y="86" font-family="Aptos" font-size="40" font-weight="800" fill="#17202A"><tspan x="70" dy="0">一页结论：先治理，再扩面</tspan></text>
+<text x="72" y="158" font-family="Aptos" font-size="23" font-weight="700" fill="#1F8A70"><tspan x="72" dy="0">先用治理换规模，再用数据谈预算。</tspan></text>
+<rect x="90" y="230" width="320" height="300" fill="#FFFFFF" stroke="#1F8A70" stroke-width="2" rx="10"/>
+<text x="118" y="285" font-family="Aptos" font-size="23" font-weight="700" fill="#1F8A70">01</text>
+<text x="118" y="345" font-family="Aptos" font-size="30" font-weight="700" fill="#17202A"><tspan x="118" dy="0">先选场景</tspan></text>
+<text x="118" y="415" font-family="Aptos" font-size="22" font-weight="400" fill="#667085"><tspan x="118" dy="0">优先测试生成、代码解释、低风</tspan><tspan x="118" dy="30">险重构。</tspan></text>
+<rect x="470" y="230" width="320" height="300" fill="#FFFFFF" stroke="#E76F51" stroke-width="2" rx="10"/>
+<text x="498" y="285" font-family="Aptos" font-size="23" font-weight="700" fill="#E76F51">02</text>
+<text x="498" y="345" font-family="Aptos" font-size="30" font-weight="700" fill="#17202A"><tspan x="498" dy="0">接入流程</tspan></text>
+<text x="498" y="415" font-family="Aptos" font-size="22" font-weight="400" fill="#667085"><tspan x="498" dy="0">把工具嵌入需求、代码、评审和</tspan><tspan x="498" dy="30">知识库。</tspan></text>
+<rect x="850" y="230" width="320" height="300" fill="#FFFFFF" stroke="#1F8A70" stroke-width="2" rx="10"/>
+<text x="878" y="285" font-family="Aptos" font-size="23" font-weight="700" fill="#1F8A70">03</text>
+<text x="878" y="345" font-family="Aptos" font-size="30" font-weight="700" fill="#17202A"><tspan x="878" dy="0">度量收益</tspan></text>
+<text x="878" y="415" font-family="Aptos" font-size="22" font-weight="400" fill="#667085"><tspan x="878" dy="0">用采纳率、周期、返工和满意度</tspan><tspan x="878" dy="30">判断扩面。</tspan></text>
+<text x="72" y="680" font-family="Aptos" font-size="13" font-weight="400" fill="#667085">DORA 2024；Copilot 企业文档；McKinsey 研究</text>
+<text x="1140" y="680" font-family="Aptos" font-size="16" font-weight="400" fill="#667085">2/8</text>
+</svg>

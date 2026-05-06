@@ -68,8 +68,9 @@ class effect_artifact_tests(unittest.TestCase):
             / "build_visual_pptx.js"
         )
         content = helper_path.read_text(encoding="utf-8")
-        self.assertIn("w: 6.75", content)
-        self.assertNotIn("w: 10.9", content)
+        title_slide_section = content.split("function add_content_slide", 1)[0]
+        self.assertIn("w: 6.75", title_slide_section)
+        self.assertNotIn("w: 10.9", title_slide_section)
 
     def test_quicklook_can_render_sample_pptx_thumbnail(self):
         qlmanage = Path("/usr/bin/qlmanage")
@@ -101,6 +102,31 @@ class effect_artifact_tests(unittest.TestCase):
             thumbnails = list(Path(tmp_dir).glob("*.png"))
             self.assertTrue(thumbnails)
             self.assertGreater(thumbnails[0].stat().st_size, 1000)
+
+    def test_commercial_round_three_effect_artifacts_pass_quality_gate(self):
+        base_path = (
+            repo_root
+            / "effect-tests"
+            / "visual-ppt-deck-builder-commercial"
+            / "round-3"
+        )
+        self.assertTrue((base_path / "final.pptx").is_file())
+        report = json.loads((base_path / "qa-report.json").read_text(encoding="utf-8"))
+        self.assertTrue(report["ok"])
+        self.assertEqual(report["slide_count"], 8)
+        self.assertGreaterEqual(report["layout_count"], 6)
+
+        slide_two = (base_path / "preview" / "slide-02.svg").read_text(encoding="utf-8")
+        self.assertIn("<tspan", slide_two)
+        self.assertNotIn("…", slide_two)
+
+        with zipfile.ZipFile(base_path / "final.pptx") as pptx_zip:
+            slide_entries = [
+                entry
+                for entry in pptx_zip.namelist()
+                if entry.startswith("ppt/slides/slide") and entry.endswith(".xml")
+            ]
+        self.assertEqual(len(slide_entries), 8)
 
 
 if __name__ == "__main__":

@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+<rect x="0" y="0" width="1280" height="720" fill="#F5F6F3"/>
+<rect x="0" y="0" width="12" height="720" fill="#1F8A70"/>
+<text x="70" y="86" font-family="Aptos" font-size="40" font-weight="800" fill="#17202A"><tspan x="70" dy="0">当前痛点：个人试用难变组织收益</tspan></text>
+<text x="72" y="158" font-family="Aptos" font-size="23" font-weight="700" fill="#1F8A70"><tspan x="72" dy="0">个人效率不会自动变成组织收益。</tspan></text>
+<rect x="720" y="180" width="420" height="360" fill="#FFFFFF" stroke="#1F8A70" stroke-width="2" rx="10"/>
+<text x="100" y="250" font-family="Aptos" font-size="24" font-weight="400" fill="#667085"><tspan x="100" dy="0">企业常见问题不是没人试用，而是试用分散、边界模糊、收益无</tspan><tspan x="100" dy="32">法进入预算语言。</tspan></text>
+<rect x="110" y="322" width="12" height="12" fill="#E76F51" rx="6"/>
+<text x="138" y="340" font-family="Aptos" font-size="22" font-weight="400" fill="#17202A"><tspan x="138" dy="0">入口分散：IDE、网页、聊天和代码平台各自运行。</tspan></text>
+<rect x="110" y="380" width="12" height="12" fill="#E76F51" rx="6"/>
+<text x="138" y="398" font-family="Aptos" font-size="22" font-weight="400" fill="#17202A"><tspan x="138" dy="0">知识断层：规范、历史决策和业务上下文没有稳定输入</tspan><tspan x="138" dy="30">。</tspan></text>
+<rect x="110" y="438" width="12" height="12" fill="#E76F51" rx="6"/>
+<text x="138" y="456" font-family="Aptos" font-size="22" font-weight="400" fill="#17202A"><tspan x="138" dy="0">收益难算：节省时间、返工下降和评审质量口径不一。</tspan></text>
+<rect x="110" y="496" width="12" height="12" fill="#E76F51" rx="6"/>
+<text x="138" y="514" font-family="Aptos" font-size="22" font-weight="400" fill="#17202A"><tspan x="138" dy="0">风险后置：敏感代码、生成责任和审计链路缺少前置设</tspan><tspan x="138" dy="30">计。</tspan></text>
+<text x="72" y="680" font-family="Aptos" font-size="13" font-weight="400" fill="#667085">DORA 2024；McKinsey 生成式 AI 研发生产力研究</text>
+<text x="1140" y="680" font-family="Aptos" font-size="16" font-weight="400" fill="#667085">3/8</text>
+</svg>

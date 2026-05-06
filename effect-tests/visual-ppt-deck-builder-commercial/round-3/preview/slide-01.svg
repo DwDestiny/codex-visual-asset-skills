@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+<rect x="0" y="0" width="1280" height="720" fill="#F5F6F3"/>
+<rect x="0" y="0" width="12" height="720" fill="#1F8A70"/>
+<text x="70" y="86" font-family="Aptos" font-size="40" font-weight="800" fill="#17202A"><tspan x="70" dy="0">AI 编程工具企业落地方案</tspan></text>
+
+<rect x="760" y="96" width="390" height="470" fill="#FFFFFF" stroke="#1F8A70" stroke-width="2" rx="12"/>
+<text x="804" y="170" font-family="Aptos" font-size="26" font-weight="700" fill="#17202A">01 确定主题</text>
+<text x="804" y="240" font-family="Aptos" font-size="26" font-weight="700" fill="#17202A">02 选择风格</text>
+<text x="804" y="310" font-family="Aptos" font-size="26" font-weight="700" fill="#17202A">03 生成素材</text>
+<text x="804" y="380" font-family="Aptos" font-size="26" font-weight="700" fill="#17202A">04 交付文件</text>
+<text x="804" y="510" font-family="Aptos" font-size="24" font-weight="700" fill="#1F8A70"><tspan x="804" dy="0">90 天商业化落地</tspan></text>
+
+<text x="1140" y="680" font-family="Aptos" font-size="16" font-weight="400" fill="#667085">1/8</text>
+</svg>

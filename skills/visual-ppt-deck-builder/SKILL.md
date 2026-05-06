@@ -19,7 +19,8 @@ description: Build editable PPTX decks from a confirmed topic, outline, visual s
 4. **确认张数和每页内容**：输出 slide plan，逐页写清标题、核心信息、证明对象、需要生成的背景/透明素材/图表。
 5. **逐张生成**：按确认后的风格逐页生成背景、文案、透明 PNG 素材、图表和页面布局。
 6. **组合 PPTX**：优先使用可编辑文本、形状、图表和图片层。只有背景大图可以是 raster；正文、图表、关键标签不要糊成整页图。
-7. **验收交付**：检查 PPTX 能打开、页数正确、媒体资源存在、文字不溢出、透明素材叠加正常。
+7. **硬门禁验收**：先跑 deck spec 质量检查，再生成整套 SVG 预览图；未通过前不要交付。
+8. **交付**：检查 PPTX 能打开、页数正确、媒体资源存在、文字不溢出、透明素材叠加正常。
 
 ## 风格候选要求
 
@@ -77,14 +78,35 @@ node "${CODEX_HOME:-$HOME/.codex}/skills/visual-ppt-deck-builder/scripts/build_v
 
 Deck spec 写法见 `references/deck-spec-schema.md`。
 
+商用 deck 交付前必须跑质量门禁：
+
+```bash
+node "${CODEX_HOME:-$HOME/.codex}/skills/visual-ppt-deck-builder/scripts/validate_deck_quality.js" \
+  --spec /absolute/path/deck_spec.json \
+  --report /absolute/path/qa_report.json
+```
+
+同时生成可扫视的整套页面预览：
+
+```bash
+node "${CODEX_HOME:-$HOME/.codex}/skills/visual-ppt-deck-builder/scripts/build_deck_preview.js" \
+  --spec /absolute/path/deck_spec.json \
+  --output-dir /absolute/path/preview
+```
+
+预览目录会包含逐页 `slide-01.svg` 和 `contact-sheet.svg`。它不是最终 PPT 渲染，但能快速发现页型重复、空洞页面、模板词、缺来源和信息密度问题。
+
 ## 验收标准
 
 - 用户已确认主题、大纲、风格、张数和每页内容。
 - 有 5 套图片风格候选，且最终风格被明确选中。
+- 商用 deck 至少 6 页，至少 5 种 layout；必须覆盖结论页、架构/路线页、指标/图表页、对比页、风险与下一步页。
+- 除标题/章节/收尾页外，每页必须有 `claim`，也就是这一页真正想证明的一句话。
 - PPTX 页数与 slide plan 一致。
 - 标题、正文、图表标签是可编辑对象，不能全页截图化。
 - 透明素材边缘干净，叠在深色、浅色背景上都能读清。
 - 图表有明确口径；没有来源的数据不能伪装成事实。
+- 不允许残留 `Topic`、`Style`、`Assets`、`TODO`、`TBD`、`占位` 这类模板词。
 - 最终交付 `.pptx`，同时保留生成用的 deck spec、透明素材和关键源图。
 
 ## 需要时读取

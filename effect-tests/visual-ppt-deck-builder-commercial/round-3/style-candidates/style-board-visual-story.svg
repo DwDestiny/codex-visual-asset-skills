@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+  <rect width="1280" height="720" fill="#FFFDF7"/>
+  <rect x="58" y="70" width="104" height="12" fill="#FF7C8A"/>
+  <text x="58" y="145" font-family="Arial, sans-serif" font-size="42" font-weight="700" fill="#232323">视觉叙事型</text>
+  <text x="58" y="192" font-family="Arial, sans-serif" font-size="22" fill="#232323" opacity="0.72">AI 编程工具进入企业研发流程的商业化落地方案</text>
+  <rect x="58" y="265" width="305" height="245" rx="10" fill="#FFFFFF" opacity="0.78" stroke="#65B6FF" stroke-width="2"/>
+  <rect x="405" y="245" width="360" height="285" rx="10" fill="#FFFFFF" opacity="0.55" stroke="#FF7C8A" stroke-width="2"/>
+  <rect x="820" y="155" width="330" height="410" rx="12" fill="#FFFFFF" opacity="0.66" stroke="#65B6FF" stroke-width="2"/>
+  <circle cx="122" cy="345" r="34" fill="#65B6FF"/>
+  <circle cx="210" cy="345" r="34" fill="#FF7C8A"/>
+  <circle cx="298" cy="345" r="34" fill="#232323" opacity="0.85"/>
+  <rect x="455" y="438" width="42" height="58" fill="#65B6FF"/>
+  <rect x="525" y="388" width="42" height="108" fill="#FF7C8A"/>
+  <rect x="595" y="335" width="42" height="161" fill="#65B6FF"/>
+  <line x1="860" y1="255" x2="1090" y2="255" stroke="#65B6FF" stroke-width="5"/>
+  <line x1="860" y1="330" x2="1040" y2="330" stroke="#FF7C8A" stroke-width="5"/>
+  <line x1="860" y1="405" x2="1115" y2="405" stroke="#232323" stroke-width="5" opacity="0.55"/>
+  <text x="58" y="630" font-family="Arial, sans-serif" font-size="18" fill="#232323" opacity="0.68">style board / cover rhythm / chart language / transparent asset direction</text>
+</svg>

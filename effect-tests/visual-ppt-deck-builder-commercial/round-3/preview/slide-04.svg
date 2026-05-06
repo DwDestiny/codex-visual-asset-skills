@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+<rect x="0" y="0" width="1280" height="720" fill="#F5F6F3"/>
+<rect x="0" y="0" width="12" height="720" fill="#1F8A70"/>
+<text x="70" y="86" font-family="Aptos" font-size="40" font-weight="800" fill="#17202A"><tspan x="70" dy="0">组织级接入架构：工具能力进流程</tspan></text>
+<text x="72" y="158" font-family="Aptos" font-size="23" font-weight="700" fill="#1F8A70"><tspan x="72" dy="0">AI 编程能力要接入研发系统，而不是只发插件。</tspan></text>
+<rect x="100" y="220" width="1080" height="56" fill="#FFFFFF" stroke="#1F8A70" stroke-width="2" rx="8"/>
+<text x="128" y="250" font-family="Aptos" font-size="21" font-weight="700" fill="#17202A"><tspan x="128" dy="0">入口层</tspan></text>
+<text x="360" y="250" font-family="Aptos" font-size="20" font-weight="400" fill="#667085"><tspan x="360" dy="0">IDE、代码平台、需求系统、知识库和聊天入口统一接入。</tspan></text>
+<rect x="100" y="302" width="1080" height="56" fill="#F5F6F3" stroke="#E76F51" stroke-width="2" rx="8"/>
+<text x="128" y="332" font-family="Aptos" font-size="21" font-weight="700" fill="#17202A"><tspan x="128" dy="0">能力层</tspan></text>
+<text x="360" y="332" font-family="Aptos" font-size="20" font-weight="400" fill="#667085"><tspan x="360" dy="0">代码补全、测试生成、代码解释、文档生成和评审辅助按场景开放。</tspan></text>
+<rect x="100" y="384" width="1080" height="56" fill="#FFFFFF" stroke="#1F8A70" stroke-width="2" rx="8"/>
+<text x="128" y="414" font-family="Aptos" font-size="21" font-weight="700" fill="#17202A"><tspan x="128" dy="0">治理层</tspan></text>
+<text x="360" y="414" font-family="Aptos" font-size="20" font-weight="400" fill="#667085"><tspan x="360" dy="0">账号授权、模型范围、内容排除、敏感仓库策略和日志审计统一管理。</tspan></text>
+<rect x="100" y="466" width="1080" height="56" fill="#F5F6F3" stroke="#E76F51" stroke-width="2" rx="8"/>
+<text x="128" y="496" font-family="Aptos" font-size="21" font-weight="700" fill="#17202A"><tspan x="128" dy="0">度量层</tspan></text>
+<text x="360" y="496" font-family="Aptos" font-size="20" font-weight="400" fill="#667085"><tspan x="360" dy="0">采纳率、周期变化、缺陷返工、评审吞吐和知识复用进入看板。</tspan></text>
+<text x="72" y="680" font-family="Aptos" font-size="13" font-weight="400" fill="#667085">GitHub Copilot 企业文档；研发平台治理经验</text>
+<text x="1140" y="680" font-family="Aptos" font-size="16" font-weight="400" fill="#667085">4/8</text>
+</svg>

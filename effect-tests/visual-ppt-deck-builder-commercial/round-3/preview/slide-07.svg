@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+<rect x="0" y="0" width="1280" height="720" fill="#F5F6F3"/>
+<rect x="0" y="0" width="12" height="720" fill="#1F8A70"/>
+<text x="70" y="86" font-family="Aptos" font-size="40" font-weight="800" fill="#17202A"><tspan x="70" dy="0">90 天落地路线：从试点到扩面</tspan></text>
+<text x="72" y="158" font-family="Aptos" font-size="23" font-weight="700" fill="#1F8A70"><tspan x="72" dy="0">90 天足够形成扩面或收缩决策。</tspan></text>
+<rect x="95" y="230" width="245" height="320" fill="#FFFFFF" stroke="#1F8A70" stroke-width="2" rx="10"/>
+<text x="117" y="285" font-family="Aptos" font-size="20" font-weight="700" fill="#1F8A70"><tspan x="117" dy="0">第 1-2 周</tspan></text>
+<text x="117" y="340" font-family="Aptos" font-size="26" font-weight="700" fill="#17202A"><tspan x="117" dy="0">定场景</tspan></text>
+<text x="117" y="420" font-family="Aptos" font-size="19" font-weight="400" fill="#667085"><tspan x="117" dy="0">选 2-3 个低敏高频场景</tspan><tspan x="117" dy="26">，明确仓库、权限、指标</tspan><tspan x="117" dy="26">和禁用动作。</tspan></text>
+<rect x="380" y="230" width="245" height="320" fill="#FFFFFF" stroke="#E76F51" stroke-width="2" rx="10"/>
+<text x="402" y="285" font-family="Aptos" font-size="20" font-weight="700" fill="#E76F51"><tspan x="402" dy="0">第 3-6 周</tspan></text>
+<text x="402" y="340" font-family="Aptos" font-size="26" font-weight="700" fill="#17202A"><tspan x="402" dy="0">跑任务</tspan></text>
+<text x="402" y="420" font-family="Aptos" font-size="19" font-weight="400" fill="#667085"><tspan x="402" dy="0">进入真实需求、缺陷和评</tspan><tspan x="402" dy="26">审任务，收集采纳、周期</tspan><tspan x="402" dy="26">和质量变化。</tspan></text>
+<rect x="665" y="230" width="245" height="320" fill="#FFFFFF" stroke="#1F8A70" stroke-width="2" rx="10"/>
+<text x="687" y="285" font-family="Aptos" font-size="20" font-weight="700" fill="#1F8A70"><tspan x="687" dy="0">第 7-10 周</tspan></text>
+<text x="687" y="340" font-family="Aptos" font-size="26" font-weight="700" fill="#17202A"><tspan x="687" dy="0">补治理</tspan></text>
+<text x="687" y="420" font-family="Aptos" font-size="19" font-weight="400" fill="#667085"><tspan x="687" dy="0">固化提示规范、内容排除</tspan><tspan x="687" dy="26">、审计流程、知识库输入</tspan><tspan x="687" dy="26">和评审边界。</tspan></text>
+<rect x="950" y="230" width="245" height="320" fill="#FFFFFF" stroke="#E76F51" stroke-width="2" rx="10"/>
+<text x="972" y="285" font-family="Aptos" font-size="20" font-weight="700" fill="#E76F51"><tspan x="972" dy="0">第 11-13 周</tspan></text>
+<text x="972" y="340" font-family="Aptos" font-size="26" font-weight="700" fill="#17202A"><tspan x="972" dy="0">做复盘</tspan></text>
+<text x="972" y="420" font-family="Aptos" font-size="19" font-weight="400" fill="#667085"><tspan x="972" dy="0">形成收益、风险、预算和</tspan><tspan x="972" dy="26">推广方案，决定是否部门</tspan><tspan x="972" dy="26">级扩面。</tspan></text>
+<text x="72" y="680" font-family="Aptos" font-size="13" font-weight="400" fill="#667085">企业试点方法；DORA 2024</text>
+<text x="1140" y="680" font-family="Aptos" font-size="16" font-weight="400" fill="#667085">7/8</text>
+</svg>

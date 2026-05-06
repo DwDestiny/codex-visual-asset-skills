@@ -1,0 +1,17 @@
+{
+  "ok": true,
+  "errors": [],
+  "warnings": [],
+  "slide_count": 8,
+  "layout_count": 8,
+  "layouts": [
+    "title",
+    "executive_summary",
+    "content",
+    "architecture",
+    "metrics",
+    "comparison",
+    "roadmap",
+    "risk_next_steps"
+  ]
+}

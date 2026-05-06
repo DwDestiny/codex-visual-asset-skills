@@ -139,6 +139,8 @@ python ~/.codex/skills/sprite-animation-assets/scripts/compose_sprite_set.py --h
 ```bash
 node ~/.codex/skills/visual-ppt-deck-builder/scripts/build_visual_pptx.js --help
 node ~/.codex/skills/visual-ppt-deck-builder/scripts/build_style_candidates.js --help
+node ~/.codex/skills/visual-ppt-deck-builder/scripts/validate_deck_quality.js --help
+node ~/.codex/skills/visual-ppt-deck-builder/scripts/build_deck_preview.js --help
 ```
 
 ### 仓库结构
@@ -157,6 +159,8 @@ skills/
     SKILL.md
     scripts/build_visual_pptx.js
     scripts/build_style_candidates.js
+    scripts/validate_deck_quality.js
+    scripts/build_deck_preview.js
     references/deck-spec-schema.md
     references/research-notes.md
 demos/
@@ -173,7 +177,7 @@ tests/
 
 ### 边界
 
-这两个 skill 不替代官方 `hatch-pet`。如果你要的是完整 Codex 自定义宠物包，包括 `pet.json`、完整 8x9 atlas、QA contact sheet、预览视频和 app-ready packaging，继续用 `hatch-pet`。
+这三个 skill 不替代官方 `hatch-pet`。如果你要的是完整 Codex 自定义宠物包，包括 `pet.json`、完整 8x9 atlas、QA contact sheet、预览视频和 app-ready packaging，继续用 `hatch-pet`。
 
 如果你只需要可复用素材：
 
@@ -199,7 +203,7 @@ In short: use `hatch-pet` when you need a complete Codex custom pet package; use
 
 ### Install
 
-Install both skills globally for Codex:
+Install all three skills globally for Codex:
 
 ```bash
 npx skills add DwDestiny/codex-visual-asset-skills --skill '*' -g -a codex -y
@@ -312,6 +316,8 @@ Core script:
 ```bash
 node ~/.codex/skills/visual-ppt-deck-builder/scripts/build_visual_pptx.js --help
 node ~/.codex/skills/visual-ppt-deck-builder/scripts/build_style_candidates.js --help
+node ~/.codex/skills/visual-ppt-deck-builder/scripts/validate_deck_quality.js --help
+node ~/.codex/skills/visual-ppt-deck-builder/scripts/build_deck_preview.js --help
 ```
 
 ### Repository Layout
@@ -330,6 +336,8 @@ skills/
     SKILL.md
     scripts/build_visual_pptx.js
     scripts/build_style_candidates.js
+    scripts/validate_deck_quality.js
+    scripts/build_deck_preview.js
     references/deck-spec-schema.md
     references/research-notes.md
 demos/
