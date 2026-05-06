@@ -16,16 +16,17 @@
 
 ## 中文
 
-从 OpenAI 官方 `hatch-pet` 工作流里拆出来的两段通用视觉素材能力：
+从 OpenAI 官方 `hatch-pet` 工作流里拆出来并扩展成三段通用视觉素材能力：
 
 - `transparent-visual-assets`：用 Codex 生图生成纯色背景素材，再清理成透明 PNG。
 - `sprite-animation-assets`：规划连续帧，把透明帧组合成 GIF 预览和 spritesheet/atlas。
+- `visual-ppt-deck-builder`：先确认主题、大纲和 5 套图片风格候选，再用透明素材、图表和排版组合成可编辑 PPTX。
 
-一句话：需要完整 Codex 自定义宠物包时继续用 `hatch-pet`；只想做透明素材或动画素材时，用这两个更轻。
+一句话：需要完整 Codex 自定义宠物包时继续用 `hatch-pet`；只想做透明素材、动画素材或视觉型 PPTX 时，用这些更轻。
 
 ### 安装
 
-安装两个 skill 到 Codex 全局目录：
+安装全部 skill 到 Codex 全局目录：
 
 ```bash
 npx skills add DwDestiny/codex-visual-asset-skills --skill '*' -g -a codex -y
@@ -36,6 +37,7 @@ npx skills add DwDestiny/codex-visual-asset-skills --skill '*' -g -a codex -y
 ```bash
 npx skills add DwDestiny/codex-visual-asset-skills --skill transparent-visual-assets -g -a codex -y
 npx skills add DwDestiny/codex-visual-asset-skills --skill sprite-animation-assets -g -a codex -y
+npx skills add DwDestiny/codex-visual-asset-skills --skill visual-ppt-deck-builder -g -a codex -y
 ```
 
 先查看仓库里有哪些 skill：
@@ -52,6 +54,10 @@ Use $transparent-visual-assets to create a transparent PNG cartoon character ass
 
 ```text
 Use $sprite-animation-assets to turn this character into a waving GIF and transparent spritesheet.
+```
+
+```text
+Use $visual-ppt-deck-builder to create an editable PPTX deck about AI visual asset production.
 ```
 
 ### 使用场景
@@ -84,13 +90,19 @@ Use $sprite-animation-assets to turn this character into a waving GIF and transp
 
 ![greeting wave contact sheet](demos/sprite-animation-assets/qa/greeting-wave-contact-sheet.png)
 
+PPTX skill demo：`visual-ppt-deck-builder` 会把确认后的 deck spec 组合成可编辑 PowerPoint，示例文件在：
+
+```text
+demos/visual-ppt-deck-builder/sample-visual-ppt-deck.pptx
+```
+
 本地预览页：
 
 ```text
 demos/preview/index.html
 ```
 
-### 两个 skill 分别解决什么
+### 三个 skill 分别解决什么
 
 `transparent-visual-assets` 会指导 Codex：
 
@@ -116,6 +128,18 @@ python ~/.codex/skills/transparent-visual-assets/scripts/prepare_transparent_ass
 python ~/.codex/skills/sprite-animation-assets/scripts/compose_sprite_set.py --help
 ```
 
+`visual-ppt-deck-builder` 会指导 Codex：
+
+1. 先确认主题、大纲、风格、张数和每页内容。
+2. 通过 5 套图片候选确认视觉方向。
+3. 逐页生成背景、文案、透明素材、图表和排版，并交付可编辑 PPTX。
+
+核心脚本：
+
+```bash
+node ~/.codex/skills/visual-ppt-deck-builder/scripts/build_visual_pptx.js --help
+```
+
 ### 仓库结构
 
 ```text
@@ -128,11 +152,17 @@ skills/
     SKILL.md
     scripts/compose_sprite_set.py
     references/sprite-atlas-layouts.md
+  visual-ppt-deck-builder/
+    SKILL.md
+    scripts/build_visual_pptx.js
+    references/deck-spec-schema.md
+    references/research-notes.md
 demos/
   source-model/
   transparent-assets/
   use-cases/
   sprite-animation-assets/
+  visual-ppt-deck-builder/
   preview/
   process_model_demo_assets.py
 tests/
@@ -147,6 +177,7 @@ tests/
 
 - 单张透明 PNG：用 `transparent-visual-assets`
 - 连续帧 / GIF / spritesheet：用 `sprite-animation-assets`
+- 视觉型 PPTX：用 `visual-ppt-deck-builder`
 
 <p align="right"><a href="#codex-visual-asset-skills">返回顶部</a> · <a href="#english">English</a></p>
 
@@ -156,12 +187,13 @@ tests/
 
 ## English
 
-Two general visual-asset skills extracted from the reusable asset-production parts of OpenAI's official `hatch-pet` workflow:
+Three general visual-asset skills extracted from and extended beyond the reusable asset-production parts of OpenAI's official `hatch-pet` workflow:
 
 - `transparent-visual-assets` — generate a flat-background image with Codex, then clean it into a transparent PNG.
 - `sprite-animation-assets` — plan continuous frames and package transparent frames into GIF previews and spritesheet atlases.
+- `visual-ppt-deck-builder` — confirm the topic, outline, five image-based style candidates, slide plan, visual assets, layout, and export an editable PPTX.
 
-In short: use `hatch-pet` when you need a complete Codex custom pet package; use these smaller skills when you only need transparent assets or animation assets.
+In short: use `hatch-pet` when you need a complete Codex custom pet package; use these smaller skills when you need transparent assets, animation assets, or visual PPTX decks.
 
 ### Install
 
@@ -176,6 +208,7 @@ Install only one:
 ```bash
 npx skills add DwDestiny/codex-visual-asset-skills --skill transparent-visual-assets -g -a codex -y
 npx skills add DwDestiny/codex-visual-asset-skills --skill sprite-animation-assets -g -a codex -y
+npx skills add DwDestiny/codex-visual-asset-skills --skill visual-ppt-deck-builder -g -a codex -y
 ```
 
 List available skills before installing:
@@ -192,6 +225,10 @@ Use $transparent-visual-assets to create a transparent PNG cartoon character ass
 
 ```text
 Use $sprite-animation-assets to turn this character into a waving GIF and transparent spritesheet.
+```
+
+```text
+Use $visual-ppt-deck-builder to create an editable PPTX deck about AI visual asset production.
 ```
 
 ### Use Cases
@@ -223,6 +260,12 @@ Animation sprite set: generate a continuous action strip with Codex, split it in
 Frame-by-frame QA:
 
 ![greeting wave contact sheet](demos/sprite-animation-assets/qa/greeting-wave-contact-sheet.png)
+
+PPTX skill demo: `visual-ppt-deck-builder` turns a confirmed deck spec into an editable PowerPoint file:
+
+```text
+demos/visual-ppt-deck-builder/sample-visual-ppt-deck.pptx
+```
 
 Local preview page:
 
@@ -256,6 +299,18 @@ Core script:
 python ~/.codex/skills/sprite-animation-assets/scripts/compose_sprite_set.py --help
 ```
 
+`visual-ppt-deck-builder` helps Codex:
+
+1. Confirm topic, outline, style, slide count, and per-slide content.
+2. Use five image-based candidates to lock the visual direction.
+3. Generate backgrounds, copy, transparent assets, charts, and layouts, then deliver an editable PPTX.
+
+Core script:
+
+```bash
+node ~/.codex/skills/visual-ppt-deck-builder/scripts/build_visual_pptx.js --help
+```
+
 ### Repository Layout
 
 ```text
@@ -268,11 +323,17 @@ skills/
     SKILL.md
     scripts/compose_sprite_set.py
     references/sprite-atlas-layouts.md
+  visual-ppt-deck-builder/
+    SKILL.md
+    scripts/build_visual_pptx.js
+    references/deck-spec-schema.md
+    references/research-notes.md
 demos/
   source-model/
   transparent-assets/
   use-cases/
   sprite-animation-assets/
+  visual-ppt-deck-builder/
   preview/
   process_model_demo_assets.py
 tests/
@@ -287,5 +348,6 @@ Use these skills for reusable material steps:
 
 - Single transparent PNG: `transparent-visual-assets`
 - Frames / GIF / spritesheet: `sprite-animation-assets`
+- Visual PPTX deck: `visual-ppt-deck-builder`
 
 <p align="right"><a href="#codex-visual-asset-skills">Back to top</a> · <a href="#中文">中文</a></p>

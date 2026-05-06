@@ -1,0 +1,4 @@
+interface:
+  display_name: "Visual PPT Deck Builder"
+  short_description: "Build editable PPTX decks with AI visual assets"
+  default_prompt: "Use $visual-ppt-deck-builder to turn this topic into an editable PPTX deck with generated visual assets."

@@ -1,0 +1,54 @@
+{
+  "title": "Codex 视觉素材生产线",
+  "subtitle": "从透明素材到可编辑 PPTX",
+  "author": "Codex",
+  "theme": {
+    "background": "F7F4EF",
+    "foreground": "17202A",
+    "accent": "1F8A70",
+    "accent_2": "E76F51",
+    "muted": "6B7280",
+    "panel": "FFFFFF",
+    "font_face": "Aptos"
+  },
+  "slides": [
+    {
+      "layout": "title",
+      "title": "Codex 视觉素材生产线",
+      "subtitle": "先定主题和风格，再逐页生成素材，最后交付可编辑 PPTX",
+      "kicker": "Visual PPT workflow"
+    },
+    {
+      "layout": "image_text",
+      "title": "透明素材是页面里的视觉组件",
+      "body": "角色、图标、图表装饰和产品插画可以独立生成，再叠加到不同页面。",
+      "bullets": ["纯色底生图", "透明背景清理", "PPTX 分层组合"],
+      "image": "../transparent-assets/polished-teal.png"
+    },
+    {
+      "layout": "bar_chart",
+      "title": "同一批素材可以跨场景复用",
+      "body": "示例数据仅用于演示，真实 deck 必须先确认数据口径和来源。",
+      "chart": {
+        "labels": ["网站", "PPT", "App", "社媒"],
+        "values": [72, 88, 63, 54],
+        "unit": "%"
+      }
+    },
+    {
+      "layout": "timeline",
+      "title": "推荐生产节奏",
+      "steps": [
+        {"label": "主题", "body": "确认目标和受众"},
+        {"label": "风格", "body": "5 套图像候选"},
+        {"label": "逐页", "body": "文案、素材、排版"},
+        {"label": "交付", "body": "PPTX 验收"}
+      ]
+    },
+    {
+      "layout": "closing",
+      "title": "最终交付不是图片集",
+      "body": "最终交付应是可编辑 PPTX，并保留素材、spec 和关键源图。"
+    }
+  ]
+}
