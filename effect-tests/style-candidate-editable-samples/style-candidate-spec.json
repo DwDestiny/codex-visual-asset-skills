@@ -1,0 +1,549 @@
+{
+  "topic": "2026 AI 应用趋势调研",
+  "candidate_count": 5,
+  "delivery_contract": "editable_pptx_samples_with_png_previews",
+  "preview_rule": "PNG 预览必须由对应 PPTX 样板渲染导出，不能直接使用整页生图作为候选。",
+  "ppt_contract": "PPTX 样板中的标题、正文、指标、图表标签和关键注释必须可编辑；图片只承担背景、透明素材和装饰层。",
+  "candidates": [
+    {
+      "slug": "minimal-premium",
+      "name": "简约高级",
+      "pptx_sample_path": "samples/style-sample-minimal-premium.pptx",
+      "preview_png_path": "previews/style-sample-minimal-premium.png",
+      "background_asset_path": "assets/background-minimal-premium.png",
+      "transparent_asset_paths": [
+        "assets/transparent-minimal-premium-accent-01.png",
+        "assets/transparent-minimal-premium-accent-02.png"
+      ],
+      "prompt_file": "prompts/background-minimal-premium.md",
+      "image_generation_prompt": "Codex image generation prompt for 简约高级.\n\nCreate a 16:9 PowerPoint background image only for a deck about: 2026 AI 应用趋势调研.\nVisual direction: premium minimalist business consulting PowerPoint background, elegant grayscale, architectural glass building details, abundant white space, thin black lines, refined corporate presentation mood.\nNo readable text, no letters, no numbers, no fake UI labels, no chart labels, no titles, no subtitles.\nLeave clean areas where editable PPT title, body copy, metric cards, and chart labels can be placed later.\nThis background image is only one raster asset layer. The final candidate preview must be produced by placing editable PPT text, shapes, charts, and labels above it.\nPalette reference: #050505, #4A4A4A, #A7A7A7, #E1E1E1, #FFFFFF.\nSuggested transparent assets to generate separately later: 黑白线框图标组, 半透明建筑结构装饰, 咨询卡片角标.",
+      "palette": [
+        "#050505",
+        "#4A4A4A",
+        "#A7A7A7",
+        "#E1E1E1",
+        "#FFFFFF"
+      ],
+      "best_for": [
+        "商业计划书",
+        "融资路演",
+        "咨询汇报"
+      ],
+      "visual_direction": "大量留白、黑白灰秩序、真实建筑线条和克制的商业咨询气质，适合严肃决策场景。",
+      "sample_content": {
+        "title": "2026 AI 应用趋势调研",
+        "subtitle": "董事会简报样张",
+        "section_title": "核心结论",
+        "body": "AI 应用正在从工具采购转向流程重构，真正的价值来自业务场景、数据闭环和组织协同。",
+        "bullets": [
+          "从单点工具进入流程级改造",
+          "高频知识工作先出现回报",
+          "治理和复用能力决定放大速度"
+        ],
+        "metrics": [
+          {
+            "value": "73%",
+            "label": "企业已进入试点"
+          },
+          {
+            "value": "3x",
+            "label": "高频任务提效"
+          },
+          {
+            "value": "2026",
+            "label": "规模化落地窗口"
+          }
+        ],
+        "chart_labels": [
+          "工具",
+          "流程",
+          "数据",
+          "组织"
+        ]
+      },
+      "sample_slide_spec": {
+        "layout": "style_candidate_sample",
+        "title": "2026 AI 应用趋势调研",
+        "subtitle": "董事会简报样张",
+        "section_title": "核心结论",
+        "body": "AI 应用正在从工具采购转向流程重构，真正的价值来自业务场景、数据闭环和组织协同。",
+        "bullets": [
+          "从单点工具进入流程级改造",
+          "高频知识工作先出现回报",
+          "治理和复用能力决定放大速度"
+        ],
+        "metrics": [
+          {
+            "value": "73%",
+            "label": "企业已进入试点"
+          },
+          {
+            "value": "3x",
+            "label": "高频任务提效"
+          },
+          {
+            "value": "2026",
+            "label": "规模化落地窗口"
+          }
+        ],
+        "chart_labels": [
+          "工具",
+          "流程",
+          "数据",
+          "组织"
+        ]
+      },
+      "raster_layers": [
+        "浅灰建筑摄影感背景",
+        "低对比纸张纹理",
+        "细线空间透视氛围"
+      ],
+      "transparent_assets": [
+        "黑白线框图标组",
+        "半透明建筑结构装饰",
+        "咨询卡片角标"
+      ],
+      "editable_layers": [
+        "封面主标题",
+        "英文副标题",
+        "章节标题",
+        "数据标签",
+        "图表坐标和注释"
+      ],
+      "editable_text_contract": "标题、副标题、正文、要点、指标数字、指标标签和图表标签必须作为 PPT 文本对象生成，用户能在 PowerPoint 中直接改。",
+      "asset_layer_contract": "背景和装饰只能作为独立 raster/transparent image assets 叠加，不得承载正式正文、关键数字或图表标签。"
+    },
+    {
+      "slug": "playful-anime",
+      "name": "活泼动漫",
+      "pptx_sample_path": "samples/style-sample-playful-anime.pptx",
+      "preview_png_path": "previews/style-sample-playful-anime.png",
+      "background_asset_path": "assets/background-playful-anime.png",
+      "transparent_asset_paths": [
+        "assets/transparent-playful-anime-accent-01.png",
+        "assets/transparent-playful-anime-accent-02.png"
+      ],
+      "prompt_file": "prompts/background-playful-anime.md",
+      "image_generation_prompt": "Codex image generation prompt for 活泼动漫.\n\nCreate a 16:9 PowerPoint background image only for a deck about: 2026 AI 应用趋势调研.\nVisual direction: playful anime education PowerPoint background, cheerful classroom, soft clouds, rounded colorful visual areas, bright yellow pink blue palette, polished illustration quality.\nNo readable text, no letters, no numbers, no fake UI labels, no chart labels, no titles, no subtitles.\nLeave clean areas where editable PPT title, body copy, metric cards, and chart labels can be placed later.\nThis background image is only one raster asset layer. The final candidate preview must be produced by placing editable PPT text, shapes, charts, and labels above it.\nPalette reference: #FFC93C, #FF9EB5, #7BDDC8, #8FD3FF, #B9B2F8.\nSuggested transparent assets to generate separately later: 可爱学生角色, 课程徽章贴纸, 星星和学习道具装饰.",
+      "palette": [
+        "#FFC93C",
+        "#FF9EB5",
+        "#7BDDC8",
+        "#8FD3FF",
+        "#B9B2F8"
+      ],
+      "best_for": [
+        "教育课程",
+        "儿童产品",
+        "社群活动"
+      ],
+      "visual_direction": "明亮色彩、圆润结构、可爱角色和轻松课堂氛围，适合学习、活动和年轻用户表达。",
+      "sample_content": {
+        "title": "2026 AI 应用趋势调研",
+        "subtitle": "培训课程样张",
+        "section_title": "学习目标",
+        "body": "用轻量案例解释 AI 应用趋势，让非技术团队也能判断哪些场景值得优先试点。",
+        "bullets": [
+          "看懂趋势",
+          "识别场景",
+          "设计试点"
+        ],
+        "metrics": [
+          {
+            "value": "73%",
+            "label": "企业已进入试点"
+          },
+          {
+            "value": "3x",
+            "label": "高频任务提效"
+          },
+          {
+            "value": "2026",
+            "label": "规模化落地窗口"
+          }
+        ],
+        "chart_labels": [
+          "认知",
+          "体验",
+          "练习",
+          "复盘"
+        ]
+      },
+      "sample_slide_spec": {
+        "layout": "style_candidate_sample",
+        "title": "2026 AI 应用趋势调研",
+        "subtitle": "培训课程样张",
+        "section_title": "学习目标",
+        "body": "用轻量案例解释 AI 应用趋势，让非技术团队也能判断哪些场景值得优先试点。",
+        "bullets": [
+          "看懂趋势",
+          "识别场景",
+          "设计试点"
+        ],
+        "metrics": [
+          {
+            "value": "73%",
+            "label": "企业已进入试点"
+          },
+          {
+            "value": "3x",
+            "label": "高频任务提效"
+          },
+          {
+            "value": "2026",
+            "label": "规模化落地窗口"
+          }
+        ],
+        "chart_labels": [
+          "认知",
+          "体验",
+          "练习",
+          "复盘"
+        ]
+      },
+      "raster_layers": [
+        "明亮教室场景背景",
+        "柔和云朵和色块氛围",
+        "课程页浅色纸面纹理"
+      ],
+      "transparent_assets": [
+        "可爱学生角色",
+        "课程徽章贴纸",
+        "星星和学习道具装饰"
+      ],
+      "editable_layers": [
+        "课程标题",
+        "目标卡片文字",
+        "按钮标签",
+        "步骤编号",
+        "图表解释文字"
+      ],
+      "editable_text_contract": "标题、副标题、正文、要点、指标数字、指标标签和图表标签必须作为 PPT 文本对象生成，用户能在 PowerPoint 中直接改。",
+      "asset_layer_contract": "背景和装饰只能作为独立 raster/transparent image assets 叠加，不得承载正式正文、关键数字或图表标签。"
+    },
+    {
+      "slug": "data-analytics",
+      "name": "数据分析",
+      "pptx_sample_path": "samples/style-sample-data-analytics.pptx",
+      "preview_png_path": "previews/style-sample-data-analytics.png",
+      "background_asset_path": "assets/background-data-analytics.png",
+      "transparent_asset_paths": [
+        "assets/transparent-data-analytics-accent-01.png",
+        "assets/transparent-data-analytics-accent-02.png"
+      ],
+      "prompt_file": "prompts/background-data-analytics.md",
+      "image_generation_prompt": "Codex image generation prompt for 数据分析.\n\nCreate a 16:9 PowerPoint background image only for a deck about: 2026 AI 应用趋势调研.\nVisual direction: data analytics PowerPoint background, dark navy dashboard atmosphere, luminous blue abstract charts without labels, premium enterprise report mood, subtle grid.\nNo readable text, no letters, no numbers, no fake UI labels, no chart labels, no titles, no subtitles.\nLeave clean areas where editable PPT title, body copy, metric cards, and chart labels can be placed later.\nThis background image is only one raster asset layer. The final candidate preview must be produced by placing editable PPT text, shapes, charts, and labels above it.\nPalette reference: #020B1D, #061C3A, #0B4F86, #5B5FF0, #12C7D6.\nSuggested transparent assets to generate separately later: 发光图表装饰, KPI 卡片边框, 数据节点和连线元素.",
+      "palette": [
+        "#020B1D",
+        "#061C3A",
+        "#0B4F86",
+        "#5B5FF0",
+        "#12C7D6"
+      ],
+      "best_for": [
+        "经营复盘",
+        "增长分析",
+        "行业报告"
+      ],
+      "visual_direction": "深色科技背景、高信息密度仪表盘、蓝色发光图表和清晰 KPI 层级，适合数据驱动叙事。",
+      "sample_content": {
+        "title": "2026 AI 应用趋势调研",
+        "subtitle": "行业研究报告样张",
+        "section_title": "关键指标",
+        "body": "企业采用 AI 的竞争点，正从模型能力转向数据资产、流程嵌入和投入产出监控。",
+        "bullets": [
+          "试点数量增长",
+          "复用组件增加",
+          "ROI 口径更严格"
+        ],
+        "metrics": [
+          {
+            "value": "73%",
+            "label": "企业已进入试点"
+          },
+          {
+            "value": "3x",
+            "label": "高频任务提效"
+          },
+          {
+            "value": "2026",
+            "label": "规模化落地窗口"
+          }
+        ],
+        "chart_labels": [
+          "采纳",
+          "复用",
+          "成本",
+          "收益"
+        ]
+      },
+      "sample_slide_spec": {
+        "layout": "style_candidate_sample",
+        "title": "2026 AI 应用趋势调研",
+        "subtitle": "行业研究报告样张",
+        "section_title": "关键指标",
+        "body": "企业采用 AI 的竞争点，正从模型能力转向数据资产、流程嵌入和投入产出监控。",
+        "bullets": [
+          "试点数量增长",
+          "复用组件增加",
+          "ROI 口径更严格"
+        ],
+        "metrics": [
+          {
+            "value": "73%",
+            "label": "企业已进入试点"
+          },
+          {
+            "value": "3x",
+            "label": "高频任务提效"
+          },
+          {
+            "value": "2026",
+            "label": "规模化落地窗口"
+          }
+        ],
+        "chart_labels": [
+          "采纳",
+          "复用",
+          "成本",
+          "收益"
+        ]
+      },
+      "raster_layers": [
+        "深蓝网格空间背景",
+        "发光数据柱状图氛围",
+        "暗色仪表盘底图"
+      ],
+      "transparent_assets": [
+        "发光图表装饰",
+        "KPI 卡片边框",
+        "数据节点和连线元素"
+      ],
+      "editable_layers": [
+        "报告标题",
+        "KPI 数字",
+        "图表标题",
+        "坐标轴标签",
+        "来源说明"
+      ],
+      "editable_text_contract": "标题、副标题、正文、要点、指标数字、指标标签和图表标签必须作为 PPT 文本对象生成，用户能在 PowerPoint 中直接改。",
+      "asset_layer_contract": "背景和装饰只能作为独立 raster/transparent image assets 叠加，不得承载正式正文、关键数字或图表标签。"
+    },
+    {
+      "slug": "oriental-heritage",
+      "name": "国潮东方",
+      "pptx_sample_path": "samples/style-sample-oriental-heritage.pptx",
+      "preview_png_path": "previews/style-sample-oriental-heritage.png",
+      "background_asset_path": "assets/background-oriental-heritage.png",
+      "transparent_asset_paths": [
+        "assets/transparent-oriental-heritage-accent-01.png",
+        "assets/transparent-oriental-heritage-accent-02.png"
+      ],
+      "prompt_file": "prompts/background-oriental-heritage.md",
+      "image_generation_prompt": "Codex image generation prompt for 国潮东方.\n\nCreate a 16:9 PowerPoint background image only for a deck about: 2026 AI 应用趋势调研.\nVisual direction: oriental heritage PowerPoint background, premium Chinese ink landscape, rice paper texture, vermilion accent, elegant modern brand presentation, calm cultural luxury, no text.\nNo readable text, no letters, no numbers, no fake UI labels, no chart labels, no titles, no subtitles.\nLeave clean areas where editable PPT title, body copy, metric cards, and chart labels can be placed later.\nThis background image is only one raster asset layer. The final candidate preview must be produced by placing editable PPT text, shapes, charts, and labels above it.\nPalette reference: #B91C1C, #171717, #E8DCC7, #F3EADB, #FAF8F2.\nSuggested transparent assets to generate separately later: 水墨山石装饰, 朱红印章元素, 梅枝或器物剪影.",
+      "palette": [
+        "#B91C1C",
+        "#171717",
+        "#E8DCC7",
+        "#F3EADB",
+        "#FAF8F2"
+      ],
+      "best_for": [
+        "品牌介绍",
+        "文化项目",
+        "消费品提案"
+      ],
+      "visual_direction": "宣纸质感、朱红墨黑、山水留白和当代表达，适合东方文化、品牌和消费品提案。",
+      "sample_content": {
+        "title": "2026 AI 应用趋势调研",
+        "subtitle": "品牌战略解读样张",
+        "section_title": "趋势脉络",
+        "body": "新技术落地不是一阵风，而是从器、术、法到组织文化的一次长期演进。",
+        "bullets": [
+          "以器入局",
+          "以术成事",
+          "以法固化"
+        ],
+        "metrics": [
+          {
+            "value": "73%",
+            "label": "企业已进入试点"
+          },
+          {
+            "value": "3x",
+            "label": "高频任务提效"
+          },
+          {
+            "value": "2026",
+            "label": "规模化落地窗口"
+          }
+        ],
+        "chart_labels": [
+          "起",
+          "承",
+          "转",
+          "合"
+        ]
+      },
+      "sample_slide_spec": {
+        "layout": "style_candidate_sample",
+        "title": "2026 AI 应用趋势调研",
+        "subtitle": "品牌战略解读样张",
+        "section_title": "趋势脉络",
+        "body": "新技术落地不是一阵风，而是从器、术、法到组织文化的一次长期演进。",
+        "bullets": [
+          "以器入局",
+          "以术成事",
+          "以法固化"
+        ],
+        "metrics": [
+          {
+            "value": "73%",
+            "label": "企业已进入试点"
+          },
+          {
+            "value": "3x",
+            "label": "高频任务提效"
+          },
+          {
+            "value": "2026",
+            "label": "规模化落地窗口"
+          }
+        ],
+        "chart_labels": [
+          "起",
+          "承",
+          "转",
+          "合"
+        ]
+      },
+      "raster_layers": [
+        "宣纸纹理背景",
+        "水墨山水远景",
+        "朱红印章氛围"
+      ],
+      "transparent_assets": [
+        "水墨山石装饰",
+        "朱红印章元素",
+        "梅枝或器物剪影"
+      ],
+      "editable_layers": [
+        "品牌标题",
+        "理念卡片文字",
+        "章节题签",
+        "说明正文",
+        "页脚日期"
+      ],
+      "editable_text_contract": "标题、副标题、正文、要点、指标数字、指标标签和图表标签必须作为 PPT 文本对象生成，用户能在 PowerPoint 中直接改。",
+      "asset_layer_contract": "背景和装饰只能作为独立 raster/transparent image assets 叠加，不得承载正式正文、关键数字或图表标签。"
+    },
+    {
+      "slug": "future-tech",
+      "name": "未来科技",
+      "pptx_sample_path": "samples/style-sample-future-tech.pptx",
+      "preview_png_path": "previews/style-sample-future-tech.png",
+      "background_asset_path": "assets/background-future-tech.png",
+      "transparent_asset_paths": [
+        "assets/transparent-future-tech-accent-01.png",
+        "assets/transparent-future-tech-accent-02.png"
+      ],
+      "prompt_file": "prompts/background-future-tech.md",
+      "image_generation_prompt": "Codex image generation prompt for 未来科技.\n\nCreate a 16:9 PowerPoint background image only for a deck about: 2026 AI 应用趋势调研.\nVisual direction: future technology PowerPoint background, dark cinematic AI product launch, cyan neon glow, holographic chip platform, glassmorphism atmosphere, premium tech conference mood, no text.\nNo readable text, no letters, no numbers, no fake UI labels, no chart labels, no titles, no subtitles.\nLeave clean areas where editable PPT title, body copy, metric cards, and chart labels can be placed later.\nThis background image is only one raster asset layer. The final candidate preview must be produced by placing editable PPT text, shapes, charts, and labels above it.\nPalette reference: #0097A7, #00D4D8, #2F80ED, #7C4DFF, #03122B.\nSuggested transparent assets to generate separately later: 玻璃拟态产品卡片, 芯片和光效装饰, 科技图标组.",
+      "palette": [
+        "#0097A7",
+        "#00D4D8",
+        "#2F80ED",
+        "#7C4DFF",
+        "#03122B"
+      ],
+      "best_for": [
+        "AI 发布会",
+        "科技产品",
+        "创新方案"
+      ],
+      "visual_direction": "深色空间、蓝绿霓虹、芯片平台和玻璃拟态卡片，适合 AI 产品发布和未来科技叙事。",
+      "sample_content": {
+        "title": "2026 AI 应用趋势调研",
+        "subtitle": "AI 产品发布会样张",
+        "section_title": "能力模块",
+        "body": "下一代 AI 应用将围绕多模态输入、智能执行、可信审计和生态连接展开。",
+        "bullets": [
+          "多模态入口",
+          "自动化执行",
+          "企业级治理"
+        ],
+        "metrics": [
+          {
+            "value": "73%",
+            "label": "企业已进入试点"
+          },
+          {
+            "value": "3x",
+            "label": "高频任务提效"
+          },
+          {
+            "value": "2026",
+            "label": "规模化落地窗口"
+          }
+        ],
+        "chart_labels": [
+          "输入",
+          "推理",
+          "执行",
+          "审计"
+        ]
+      },
+      "sample_slide_spec": {
+        "layout": "style_candidate_sample",
+        "title": "2026 AI 应用趋势调研",
+        "subtitle": "AI 产品发布会样张",
+        "section_title": "能力模块",
+        "body": "下一代 AI 应用将围绕多模态输入、智能执行、可信审计和生态连接展开。",
+        "bullets": [
+          "多模态入口",
+          "自动化执行",
+          "企业级治理"
+        ],
+        "metrics": [
+          {
+            "value": "73%",
+            "label": "企业已进入试点"
+          },
+          {
+            "value": "3x",
+            "label": "高频任务提效"
+          },
+          {
+            "value": "2026",
+            "label": "规模化落地窗口"
+          }
+        ],
+        "chart_labels": [
+          "输入",
+          "推理",
+          "执行",
+          "审计"
+        ]
+      },
+      "raster_layers": [
+        "深色宇宙科技背景",
+        "AI 芯片平台主视觉",
+        "蓝绿霓虹光轨"
+      ],
+      "transparent_assets": [
+        "玻璃拟态产品卡片",
+        "芯片和光效装饰",
+        "科技图标组"
+      ],
+      "editable_layers": [
+        "发布会标题",
+        "产品卖点",
+        "功能卡片文字",
+        "时间地点",
+        "图表标签"
+      ],
+      "editable_text_contract": "标题、副标题、正文、要点、指标数字、指标标签和图表标签必须作为 PPT 文本对象生成，用户能在 PowerPoint 中直接改。",
+      "asset_layer_contract": "背景和装饰只能作为独立 raster/transparent image assets 叠加，不得承载正式正文、关键数字或图表标签。"
+    }
+  ]
+}

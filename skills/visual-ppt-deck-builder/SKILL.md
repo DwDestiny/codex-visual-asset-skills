@@ -15,7 +15,7 @@ description: Build editable PPTX decks from a confirmed topic, outline, visual s
 
 1. **确认主题**：主题、受众、使用场景、语气、是否有品牌或参考资料。
 2. **确认大纲**：先给出章节和叙事顺序，不直接开做页面。
-3. **确认风格**：结合用户偏好和主题，用 Codex 生图生成 5 张独立 PNG 风格候选图，一张图只代表一种风格。候选图要带样本标题、正文、指标和图表标签，让用户能判断字体、字号层级、排版密度和内容承载效果。不要把 5 个风格塞进一张总览图给用户选。
+3. **确认风格**：结合用户偏好和主题，生成 5 套真实可实现的风格候选。每套候选必须包含一页可编辑 PPTX 样板和一张由该 PPTX 导出的 PNG 预览；样板里要带真实标题、正文、指标和图表标签，让用户判断字体、字号层级、排版密度和内容承载效果。不要把 5 个风格塞进一张总览图。
 4. **确认张数和每页内容**：输出 slide plan，逐页写清标题、核心信息、证明对象、需要生成的背景/透明素材/图表。
 5. **逐张生成**：按确认后的风格逐页生成背景、文案、透明 PNG 素材、图表和页面布局。
 6. **组合 PPTX**：优先使用可编辑文本、形状、图表和图片层。只有背景大图可以是 raster；正文、图表、关键标签不要糊成整页图。
@@ -24,7 +24,7 @@ description: Build editable PPTX decks from a confirmed topic, outline, visual s
 
 ## 风格候选要求
 
-5 套候选图必须是真实图片形式，不要只列文字风格名，也不要用 SVG、HTML、CSS、Canvas 或 PPT 形状拼一张假图冒充生图。建议候选覆盖不同方向：
+5 套候选必须是真实 PPT 生产路径的样板：先生成/准备背景和透明素材，再用可编辑 PPT 文本、形状、图表和图片层组合成一页 PPTX，最后从 PPTX 导出 PNG 预览给用户选。不要只列文字风格名，也不要用 SVG、HTML、CSS、Canvas 或整页生图冒充最终可编辑页面。建议候选覆盖不同方向：
 
 - 业务冷静型：适合经营复盘、战略汇报、董事会。
 - 编辑杂志型：适合课程、品牌故事、公开演讲。
@@ -34,7 +34,7 @@ description: Build editable PPTX decks from a confirmed topic, outline, visual s
 
 候选图通过后，把被选中的方向固化为 `visual_style`：色板、字体气质、背景策略、图表语言、透明素材策略、禁用元素。
 
-如果当前环境无法直接保存 Codex 生图候选，先运行工具生成 5 套生图提示包和图层契约，再逐张调用 Codex 生图能力生成 PNG：
+先运行工具生成 5 套真实样板包：
 
 ```bash
 node "${CODEX_HOME:-$HOME/.codex}/skills/visual-ppt-deck-builder/scripts/build_style_candidates.js" \
@@ -44,13 +44,15 @@ node "${CODEX_HOME:-$HOME/.codex}/skills/visual-ppt-deck-builder/scripts/build_s
 
 工具会生成：
 
-- `style-candidate-spec.json`：5 个风格候选、PNG 样张路径、透明素材策略和 PPT 图层契约。
+- `style-candidate-spec.json`：5 个风格候选、PPTX 样板路径、PNG 预览路径、背景素材策略和 PPT 图层契约。
 - `style-candidates.md`：执行说明和用户确认清单。
-- `prompts/style-sample-*.md`：逐张交给 Codex 生图的提示词。
+- `samples/style-sample-*.pptx`：每个风格一页真实可编辑 PPTX 样板。
+- `previews/style-sample-*.png`：从对应 PPTX 样板导出的 PNG 预览。
+- `prompts/background-*.md`：只用于生成无文字背景图的提示词。
 
-这一步只生成提示包，不生成视觉假图。真正给用户看的必须是 5 张独立 PNG：`style-sample-minimal-premium.png`、`style-sample-playful-anime.png`、`style-sample-data-analytics.png`、`style-sample-oriental-heritage.png`、`style-sample-future-tech.png`。
+如果要提高候选质感，逐张调用 Codex 生图能力生成无文字背景图，保存到 `assets/background-*.png` 后重新运行工具。注意：背景图不能包含标题、正文、数字、字母、图表标签或 UI 文本；这些内容必须由 PPTX 可编辑层承载。
 
-风格样张必须展示样本标题、正文、要点、指标和图表标签，用来检查字体气质、标题层级、正文可读性、卡片密度和图表语言。注意边界：样张里的文字只是风格确认用的预览；最终 PPT 中这些内容必须用可编辑文本、形状或图表层实现，不能把正式页面整页截图化。
+真正给用户看的仍然是 5 张独立 PNG 预览，但这些 PNG 必须由 PPTX 样板导出，而不是直接由整页生图模型生成。风格样张必须展示样本标题、正文、要点、指标和图表标签，用来检查字体气质、标题层级、正文可读性、卡片密度和图表语言。最终 PPT 中这些内容必须复用同一套可编辑文本、形状或图表层实现，不能把正式页面整页截图化。
 
 ## 透明素材策略
 
@@ -107,7 +109,7 @@ node "${CODEX_HOME:-$HOME/.codex}/skills/visual-ppt-deck-builder/scripts/build_d
 ## 验收标准
 
 - 用户已确认主题、大纲、风格、张数和每页内容。
-- 有 5 套图片风格候选，且最终风格被明确选中。
+- 有 5 套风格候选，且每套都包含可编辑 PPTX 样板和由 PPTX 导出的 PNG 预览；最终风格被明确选中。
 - 商用 deck 至少 6 页，至少 5 种 layout；必须覆盖结论页、架构/路线页、指标/图表页、对比页、风险与下一步页。
 - 除标题/章节/收尾页外，每页必须有 `claim`，也就是这一页真正想证明的一句话。
 - PPTX 页数与 slide plan 一致。

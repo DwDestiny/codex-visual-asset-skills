@@ -155,6 +155,7 @@ class visual_ppt_deck_builder_tests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp_dir:
             tmp_path = Path(tmp_dir)
             output_dir = tmp_path / "style-candidates"
+            topic = "2026 AI 应用趋势调研"
 
             subprocess.run(
                 [
@@ -169,7 +170,7 @@ class visual_ppt_deck_builder_tests(unittest.TestCase):
                     "--output-dir",
                     str(output_dir),
                     "--topic",
-                    "普通人用 Codex 做视觉方案",
+                    topic,
                 ],
                 check=True,
             )
@@ -177,50 +178,71 @@ class visual_ppt_deck_builder_tests(unittest.TestCase):
             self.assertFalse(list(output_dir.glob("*.svg")))
             self.assertFalse(list(output_dir.glob("style-board-*")))
             self.assertFalse((output_dir / "style-overview.svg").exists())
+            self.assertFalse((output_dir / "generated").exists())
             self.assertTrue((output_dir / "style-candidates.md").is_file())
             spec_path = output_dir / "style-candidate-spec.json"
             self.assertTrue(spec_path.is_file())
             spec = json.loads(spec_path.read_text(encoding="utf-8"))
             self.assertEqual(spec["candidate_count"], 5)
-            self.assertEqual(spec["delivery_contract"], "five_independent_real_image_pngs")
-            self.assertEqual(spec["topic"], "普通人用 Codex 做视觉方案")
+            self.assertEqual(spec["delivery_contract"], "editable_pptx_samples_with_png_previews")
+            self.assertEqual(spec["topic"], topic)
+            self.assertIn("PPTX 样板", spec["preview_rule"])
+            self.assertIn("可编辑", spec["ppt_contract"])
             expected_names = ["简约高级", "活泼动漫", "数据分析", "国潮东方", "未来科技"]
             self.assertEqual([candidate["name"] for candidate in spec["candidates"]], expected_names)
             seen_sample_paths = set()
             for candidate in spec["candidates"]:
-                self.assertTrue(candidate["sample_image_path"].endswith(".png"))
-                self.assertNotIn(candidate["sample_image_path"], seen_sample_paths)
-                seen_sample_paths.add(candidate["sample_image_path"])
+                self.assertTrue(candidate["pptx_sample_path"].endswith(".pptx"))
+                self.assertTrue(candidate["preview_png_path"].endswith(".png"))
+                self.assertNotIn(candidate["preview_png_path"], seen_sample_paths)
+                seen_sample_paths.add(candidate["preview_png_path"])
+                pptx_path = output_dir / candidate["pptx_sample_path"]
+                preview_path = output_dir / candidate["preview_png_path"]
+                self.assertTrue(pptx_path.is_file())
+                self.assertTrue(preview_path.is_file())
+                self.assertGreater(pptx_path.stat().st_size, 8_000)
+                self.assertGreater(preview_path.stat().st_size, 1_000)
+                with zipfile.ZipFile(pptx_path) as pptx_zip:
+                    slide_xml = "\n".join(
+                        pptx_zip.read(entry).decode("utf-8", errors="ignore")
+                        for entry in pptx_zip.namelist()
+                        if entry.startswith("ppt/slides/slide")
+                    )
+                    self.assertIn(topic, slide_xml)
+                    self.assertIn(candidate["sample_content"]["section_title"], slide_xml)
+                    self.assertIn(candidate["sample_content"]["body"], slide_xml)
+                    for metric in candidate["sample_content"]["metrics"]:
+                        self.assertIn(metric["value"], slide_xml)
+                        self.assertIn(metric["label"], slide_xml)
                 prompt_path = output_dir / candidate["prompt_file"]
                 self.assertTrue(prompt_path.is_file())
                 prompt_content = prompt_path.read_text(encoding="utf-8")
                 self.assertIn("Codex image generation", prompt_content)
-                self.assertIn("single independent 16:9 PNG", prompt_content)
-                self.assertIn("Use the following sample Chinese content", prompt_content)
-                self.assertIn("typography hierarchy", prompt_content)
-                self.assertIn("layout density", prompt_content)
-                self.assertIn("Final PPT text must remain editable", prompt_content)
-                self.assertIn("普通人用 Codex 做视觉方案", prompt_content)
+                self.assertIn("background image only", prompt_content)
+                self.assertNotIn("Use the following sample Chinese content", prompt_content)
+                self.assertNotIn("Chart labels:", prompt_content)
+                self.assertIn(topic, prompt_content)
                 self.assertEqual(len(candidate["palette"]), 5)
                 self.assertGreaterEqual(len(candidate["best_for"]), 3)
                 self.assertGreaterEqual(len(candidate["raster_layers"]), 2)
                 self.assertGreaterEqual(len(candidate["transparent_assets"]), 2)
                 self.assertGreaterEqual(len(candidate["editable_layers"]), 4)
                 self.assertIn("sample_content", candidate)
-                self.assertEqual(candidate["sample_content"]["title"], "普通人用 Codex 做视觉方案")
+                self.assertEqual(candidate["sample_content"]["title"], topic)
                 self.assertGreaterEqual(len(candidate["sample_content"]["bullets"]), 3)
                 self.assertGreaterEqual(len(candidate["sample_content"]["metrics"]), 3)
                 self.assertGreaterEqual(len(candidate["sample_content"]["chart_labels"]), 3)
-                self.assertIn("editable", candidate["ppt_layering_contract"])
+                self.assertIn("editable_text_contract", candidate)
+                self.assertIn("asset_layer_contract", candidate)
+                self.assertIn("sample_slide_spec", candidate)
+                self.assertIn("文本", candidate["editable_text_contract"])
+                self.assertIn("背景", candidate["asset_layer_contract"])
             markdown = (output_dir / "style-candidates.md").read_text(encoding="utf-8")
-            self.assertIn("不得使用 SVG 拼凑", markdown)
-            self.assertIn("Codex 生图", markdown)
+            self.assertIn("PPTX 样板", markdown)
+            self.assertIn("PNG 预览", markdown)
             self.assertIn("文本可编辑", markdown)
-            self.assertIn("5 张独立 PNG", markdown)
-            self.assertIn("带标题和正文样本文案", markdown)
-            self.assertIn("字体层级", markdown)
-            self.assertIn("排版密度", markdown)
-            self.assertIn("最终 PPT 文本仍可编辑", markdown)
+            self.assertIn("真实 PPT", markdown)
+            self.assertIn("2026 AI 应用趋势调研", markdown)
             for banned_text in ["Topic", "Style", "Assets", "TODO", "TBD", "占位"]:
                 self.assertNotIn(banned_text, markdown)
 
