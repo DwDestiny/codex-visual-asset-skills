@@ -115,6 +115,29 @@ function rect(x, y, w, h, fill, options = {}) {
   return `<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="#${fill}"${stroke}${radius}${opacity}/>`;
 }
 
+function resolve_asset_path(asset_path, spec_dir) {
+  if (!asset_path) return null;
+  return path.isAbsolute(asset_path) ? asset_path : path.resolve(spec_dir, asset_path);
+}
+
+function image_data_uri(asset_path, spec_dir) {
+  const resolved_path = resolve_asset_path(asset_path, spec_dir);
+  if (!resolved_path || !fs.existsSync(resolved_path)) return "";
+  const extension = path.extname(resolved_path).toLowerCase();
+  const mime = extension === ".jpg" || extension === ".jpeg" ? "image/jpeg" : "image/png";
+  return `data:${mime};base64,${fs.readFileSync(resolved_path).toString("base64")}`;
+}
+
+function zone_to_px(zone, fallback) {
+  const source = zone || fallback;
+  return {
+    x: Number(source.x) * 96,
+    y: Number(source.y) * 96,
+    w: Number(source.w) * 96,
+    h: Number(source.h) * 96,
+  };
+}
+
 function render_bullets(items, x, y, theme, max_items = 4) {
   if (!Array.isArray(items)) return "";
   return items.slice(0, max_items).map((item, index) => {
@@ -124,6 +147,99 @@ function render_bullets(items, x, y, theme, max_items = 4) {
       wrapped_text(x + 28, y_pos, item, { size: 22, color: theme.foreground, max_chars: 24, max_lines: 2 }),
     ].join("\n");
   }).join("\n");
+}
+
+function render_reference_anime_slide_svg(slide, theme, index, total, spec_dir) {
+  const blueprint = slide.coordinate_blueprint || {};
+  const title_zone = zone_to_px(blueprint.title_zone, { x: 1.0, y: 1.08, w: 5.1, h: 0.62 });
+  const subtitle_zone = zone_to_px(blueprint.subtitle_zone, { x: 1.02, y: 1.78, w: 4.6, h: 0.42 });
+  const bullet_zone = zone_to_px(blueprint.bullet_zone, { x: 1.02, y: 2.46, w: 4.95, h: 2.02 });
+  const metrics_zone = zone_to_px(blueprint.metrics_zone, { x: 2.05, y: 5.12, w: 3.95, h: 1.08 });
+  const chart_title_zone = zone_to_px(blueprint.chart_title_zone, { x: 6.82, y: 1.7, w: 3.2, h: 0.38 });
+  const chart_zone = zone_to_px(blueprint.chart_zone, { x: 6.7, y: 2.38, w: 5.08, h: 3.7 });
+  const chart = slide.chart || {};
+  const labels = Array.isArray(chart.labels) ? chart.labels : [];
+  const values = Array.isArray(chart.values) ? chart.values.map(Number) : [];
+  const max_value = Math.max(...values, 100);
+  const background_uri = image_data_uri(slide.background_image, spec_dir);
+  const bullet_colors = [theme.accent, theme.accent_2, "42C6A5"];
+  const metric_colors = [theme.accent, theme.accent_2, "42BFA3"];
+  const bar_colors = ["FFC83D", "FF7F95", "72D9AA", "5B8FF9"];
+
+  const bullets = (Array.isArray(slide.bullets) ? slide.bullets : []).slice(0, 3).map((item, item_index) => {
+    const y_pos = bullet_zone.y + item_index * 71;
+    const color = bullet_colors[item_index % bullet_colors.length];
+    return [
+      `<circle cx="${bullet_zone.x + 22}" cy="${y_pos + 23}" r="22" fill="#${color}" opacity="0.92"/>`,
+      text(bullet_zone.x + 17, y_pos + 31, ["学", "产", "协"][item_index], { size: 13, weight: 800, color: "FFFFFF" }),
+      text(bullet_zone.x + 70, y_pos + 23, item.title || "", { size: 21, weight: 800, color: theme.foreground }),
+      wrapped_text(bullet_zone.x + 70, y_pos + 56, item.body || "", { size: 15, color: theme.muted, max_chars: 25, max_lines: 1 }),
+    ].join("\n");
+  }).join("\n");
+
+  const metrics = (Array.isArray(slide.metrics) ? slide.metrics : []).slice(0, 3).map((metric, metric_index) => {
+    const slot_w = metrics_zone.w / 3;
+    const x_pos = metrics_zone.x + metric_index * slot_w;
+    const color = metric_colors[metric_index % metric_colors.length];
+    const separator = metric_index === 0 ? "" : `<line x1="${x_pos - 12}" y1="${metrics_zone.y + 8}" x2="${x_pos - 12}" y2="${metrics_zone.y + 86}" stroke="#B9D2F0" stroke-width="1" stroke-dasharray="4 4" opacity="0.55"/>`;
+    return [
+      separator,
+      text(x_pos + slot_w * 0.24, metrics_zone.y + 35, metric.value || "", { size: 30, weight: 800, color }),
+      text(x_pos + slot_w * 0.25, metrics_zone.y + 68, metric.label || "", { size: 14, weight: 800, color: theme.foreground }),
+      `<circle cx="${x_pos + slot_w * 0.47}" cy="${metrics_zone.y + 96}" r="16" fill="#${color}" opacity="0.32"/>`,
+    ].join("\n");
+  }).join("\n");
+
+  const plot_x = chart_zone.x + 53;
+  const plot_y = chart_zone.y + 40;
+  const plot_w = chart_zone.w - 82;
+  const plot_h = chart_zone.h - 80;
+  const grid = [0, 25, 50, 75, 100].map((tick) => {
+    const y_pos = plot_y + plot_h - (tick / 100) * plot_h;
+    return [
+      `<line x1="${plot_x}" y1="${y_pos}" x2="${plot_x + plot_w}" y2="${y_pos}" stroke="#C7D5EA" stroke-width="1" stroke-dasharray="${tick === 0 ? "0" : "5 5"}" opacity="${tick === 0 ? "0.8" : "0.45"}"/>`,
+      text(plot_x - 32, y_pos + 4, String(tick), { size: 11, color: "587092" }),
+    ].join("\n");
+  }).join("\n");
+  const points = [];
+  const bars = values.map((value, value_index) => {
+    const slot_w = plot_w / values.length;
+    const bar_w = slot_w * 0.36;
+    const bar_x = plot_x + value_index * slot_w + slot_w / 2 - bar_w / 2;
+    const bar_h = (value / max_value) * (plot_h - 14);
+    const bar_y = plot_y + plot_h - bar_h;
+    const point = { x: bar_x + bar_w / 2, y: bar_y + 14 };
+    points.push(point);
+    return [
+      rect(bar_x, bar_y, bar_w, bar_h, bar_colors[value_index % bar_colors.length]),
+      text(bar_x + bar_w / 2 - 11, bar_y - 14, String(value), { size: 16, weight: 800, color: theme.foreground }),
+      wrapped_text(plot_x + value_index * slot_w + 8, plot_y + plot_h + 26, labels[value_index] || "", { size: 13, color: theme.muted, max_chars: 6, max_lines: 2, line_height: 16 }),
+    ].join("\n");
+  }).join("\n");
+  const trend = points.slice(0, -1).map((point, point_index) => {
+    const next = points[point_index + 1];
+    return `<line x1="${point.x}" y1="${point.y}" x2="${next.x}" y2="${next.y}" stroke="#${theme.accent}" stroke-width="3"/>`;
+  }).join("\n");
+  const nodes = points.map((point) => `<circle cx="${point.x}" cy="${point.y}" r="7" fill="#FFFFFF" stroke="#${theme.accent}" stroke-width="3"/>`).join("\n");
+
+  return [
+    `<svg xmlns="http://www.w3.org/2000/svg" width="${slide_width}" height="${slide_height}" viewBox="0 0 ${slide_width} ${slide_height}">`,
+    background_uri ? `<image href="${background_uri}" x="0" y="0" width="${slide_width}" height="${slide_height}" preserveAspectRatio="xMidYMid slice"/>` : rect(0, 0, slide_width, slide_height, theme.background),
+    text(title_zone.x, title_zone.y + 42, slide.title || "", { size: 38, weight: 800, color: theme.foreground }),
+    text(subtitle_zone.x, subtitle_zone.y + 30, slide.subtitle || "", { size: 24, weight: 500, color: "3C4F73" }),
+    bullets,
+    `<line x1="${metrics_zone.x - 48}" y1="${metrics_zone.y - 24}" x2="${metrics_zone.x + metrics_zone.w + 56}" y2="${metrics_zone.y - 24}" stroke="#B9D2F0" stroke-width="1" stroke-dasharray="5 5" opacity="0.55"/>`,
+    metrics,
+    text(chart_title_zone.x, chart_title_zone.y + 25, chart.title || "", { size: 20, weight: 800, color: theme.foreground }),
+    `<line x1="${chart_title_zone.x}" y1="${chart_title_zone.y + 42}" x2="${chart_title_zone.x + 32}" y2="${chart_title_zone.y + 42}" stroke="#${theme.accent}" stroke-width="3"/>`,
+    grid,
+    bars,
+    trend,
+    nodes,
+    chart.source ? text(chart_zone.x + 104, chart_zone.y + chart_zone.h + 34, short_text(chart.source, 34), { size: 10, color: "8AA0BB" }) : "",
+    text(1140, 680, `${index}/${total}`, { font: theme.font_face, size: 16, color: theme.muted }),
+    "</svg>",
+  ].join("\n");
 }
 
 function render_slide_body(slide, theme) {
@@ -225,7 +341,10 @@ function render_slide_body(slide, theme) {
   ].join("\n");
 }
 
-function render_slide_svg(slide, theme, index, total) {
+function render_slide_svg(slide, theme, index, total, spec_dir) {
+  if (String(slide.layout || "content") === "reference_anime_trend") {
+    return render_reference_anime_slide_svg(slide, theme, index, total, spec_dir);
+  }
   return [
     `<svg xmlns="http://www.w3.org/2000/svg" width="${slide_width}" height="${slide_height}" viewBox="0 0 ${slide_width} ${slide_height}">`,
     rect(0, 0, slide_width, slide_height, theme.background),
@@ -277,6 +396,7 @@ function build_preview(spec_path, output_dir) {
   if (!Array.isArray(spec.slides) || spec.slides.length === 0) {
     throw new Error("spec.slides must be a non-empty array");
   }
+  const spec_dir = path.dirname(path.resolve(spec_path));
   const theme = normalize_theme(spec.theme || {});
   const absolute_output = path.resolve(output_dir || "preview");
   fs.mkdirSync(absolute_output, { recursive: true });
@@ -284,7 +404,7 @@ function build_preview(spec_path, output_dir) {
     const file_name = `slide-${String(index + 1).padStart(2, "0")}.svg`;
     fs.writeFileSync(
       path.join(absolute_output, file_name),
-      `${render_slide_svg(slide, theme, index + 1, spec.slides.length)}\n`,
+      `${render_slide_svg(slide, theme, index + 1, spec.slides.length, spec_dir)}\n`,
       "utf8"
     );
   });

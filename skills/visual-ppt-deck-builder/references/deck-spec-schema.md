@@ -93,6 +93,46 @@
 
 当前 helper 用 PPT 形状绘制条形图，便于用户继续编辑。
 
+### reference_anime_trend
+
+用于“效果图母稿通过后，按 clean background + 坐标蓝图重建”的动漫科技风数据页。这个 layout 的目标不是通用模板，而是验证参考图反拆路径：背景是无文字、无图表的 raster 底板；标题、正文、指标、柱状图、趋势线、坐标标签全部是 PPT 可编辑对象。
+
+```json
+{
+  "layout": "reference_anime_trend",
+  "background_image": "assets/anime-clean-background.png",
+  "coordinate_blueprint": {
+    "title_zone": {"x": 1.0, "y": 1.08, "w": 5.1, "h": 0.62},
+    "subtitle_zone": {"x": 1.02, "y": 1.78, "w": 4.6, "h": 0.42},
+    "bullet_zone": {"x": 1.02, "y": 2.46, "w": 4.95, "h": 2.02},
+    "metrics_zone": {"x": 2.05, "y": 5.12, "w": 3.95, "h": 1.08},
+    "chart_title_zone": {"x": 6.82, "y": 1.7, "w": 3.2, "h": 0.38},
+    "chart_zone": {"x": 6.7, "y": 2.38, "w": 5.08, "h": 3.7}
+  },
+  "title": "2026 AI 应用趋势调研",
+  "subtitle": "从智能助手到业务协同",
+  "bullets": [
+    {"title": "学习成本降低", "body": "AI 工具更易上手，知识获取与技能成长更高效。"}
+  ],
+  "metrics": [
+    {"value": "73%", "label": "企业试点"}
+  ],
+  "chart": {
+    "title": "AI 应用综合趋势指数",
+    "labels": ["2023\n探索期", "2024\n成长期"],
+    "values": [58, 72],
+    "source": "示例数据，仅用于视觉样张"
+  }
+}
+```
+
+硬约束：
+
+- `background_image` 必须是 clean background，不能使用带文字和图表的效果图母稿。
+- 文字、指标、图表标签必须由 PPT 文本对象承载。
+- 柱状图、趋势线、节点和网格线必须由 PPT 形状承载。
+- 不允许用大白框、大色块框或图表容器遮住背景；如果看不清，重做背景安全区或调整坐标。
+
 ### comparison
 
 ```json

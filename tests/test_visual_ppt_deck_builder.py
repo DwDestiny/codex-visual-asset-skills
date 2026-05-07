@@ -203,7 +203,11 @@ class visual_ppt_deck_builder_tests(unittest.TestCase):
             self.assertEqual(spec["coordinate_blueprint_policy"]["coordinate_unit"], "inches_16_9")
             self.assertEqual(spec["coordinate_blueprint_policy"]["blueprint_required_before_background"], True)
             self.assertEqual(spec["coordinate_blueprint_policy"]["background_prompt_must_include_zone_coordinates"], True)
-            self.assertIn("先规划区域", spec["coordinate_blueprint_policy"]["layout_first_rule"])
+            self.assertIn("效果图拆解", spec["coordinate_blueprint_policy"]["layout_first_rule"])
+            self.assertEqual(spec["style_reference_policy"]["reference_image_required_before_decomposition"], True)
+            self.assertEqual(spec["style_reference_policy"]["clean_background_after_reference"], True)
+            self.assertEqual(spec["style_reference_policy"]["editable_reconstruction_required"], True)
+            self.assertIn("先直出完整效果图", spec["style_reference_policy"]["workflow_rule"])
             expected_names = ["简约高级", "活泼动漫", "数据分析", "国潮东方", "未来科技"]
             self.assertEqual([candidate["name"] for candidate in spec["candidates"]], expected_names)
             seen_sample_paths = set()
@@ -235,13 +239,20 @@ class visual_ppt_deck_builder_tests(unittest.TestCase):
                 self.assertTrue(prompt_path.is_file())
                 prompt_content = prompt_path.read_text(encoding="utf-8")
                 self.assertIn("Codex image generation", prompt_content)
-                self.assertIn("background image only", prompt_content)
+                self.assertIn("clean background image only", prompt_content)
                 self.assertIn("Coordinate blueprint", prompt_content)
                 self.assertIn("text_zone", prompt_content)
                 self.assertIn("chart_zone", prompt_content)
+                self.assertIn("Remove all readable text", prompt_content)
                 self.assertNotIn("Use the following sample Chinese content", prompt_content)
                 self.assertNotIn("Chart labels:", prompt_content)
                 self.assertIn(topic, prompt_content)
+                reference_prompt_path = output_dir / candidate["style_reference_prompt_file"]
+                self.assertTrue(reference_prompt_path.is_file())
+                reference_prompt_content = reference_prompt_path.read_text(encoding="utf-8")
+                self.assertIn("full-page style reference image", reference_prompt_content)
+                self.assertIn("完整效果图", reference_prompt_content)
+                self.assertIn(topic, reference_prompt_content)
                 self.assertEqual(len(candidate["palette"]), 5)
                 self.assertGreaterEqual(len(candidate["best_for"]), 3)
                 self.assertGreaterEqual(len(candidate["raster_layers"]), 2)
@@ -259,6 +270,14 @@ class visual_ppt_deck_builder_tests(unittest.TestCase):
                 self.assertIn("readability_contract", candidate)
                 self.assertIn("safe_zone_plan", candidate)
                 self.assertIn("coordinate_blueprint", candidate)
+                self.assertIn("style_reference_prompt_file", candidate)
+                self.assertIn("clean_background_prompt_file", candidate)
+                self.assertIn("visual_decomposition", candidate)
+                self.assertIn("reconstruction_layers", candidate)
+                self.assertIn("typography_system", candidate)
+                self.assertIn("chart_language", candidate)
+                self.assertIn("效果图", candidate["visual_decomposition"]["source"])
+                self.assertGreaterEqual(len(candidate["reconstruction_layers"]), 4)
                 self.assertIn("large_surface_count", candidate)
                 blueprint = candidate["coordinate_blueprint"]
                 self.assertEqual(blueprint["unit"], "inches")
@@ -296,6 +315,7 @@ class visual_ppt_deck_builder_tests(unittest.TestCase):
                 self.assertIn("integrated_surface_strategy", candidate["sample_slide_spec"])
                 self.assertIn("readable_area_strategy", candidate["sample_slide_spec"])
                 self.assertIn("coordinate_blueprint_strategy", candidate["sample_slide_spec"])
+                self.assertIn("reference_reconstruction_strategy", candidate["sample_slide_spec"])
                 self.assertEqual(candidate["sample_slide_spec"]["forbidden_large_panel_count"], 0)
                 self.assertEqual(candidate["sample_slide_spec"]["forbidden_framed_metric_tile_count"], 0)
             markdown = (output_dir / "style-candidates.md").read_text(encoding="utf-8")
@@ -311,6 +331,9 @@ class visual_ppt_deck_builder_tests(unittest.TestCase):
             self.assertIn("阅读安全区", markdown)
             self.assertIn("图表安全区", markdown)
             self.assertIn("坐标蓝图", markdown)
+            self.assertIn("效果图母稿", markdown)
+            self.assertIn("clean background", markdown)
+            self.assertIn("反拆", markdown)
             self.assertIn("title_zone", markdown)
             self.assertIn("不能靠加框补救", markdown)
             self.assertIn("2026 AI 应用趋势调研", markdown)
@@ -387,6 +410,113 @@ class visual_ppt_deck_builder_tests(unittest.TestCase):
             self.assertTrue(any("claim" in error for error in report["errors"]))
             self.assertTrue(any("source" in error for error in report["errors"]))
             self.assertTrue(any("placeholder" in error for error in report["errors"]))
+
+    def test_reference_anime_trend_layout_builds_editable_pptx_without_large_panels(self):
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            tmp_path = Path(tmp_dir)
+            background_path = tmp_path / "clean_background.png"
+            image = Image.new("RGB", (1600, 900), (238, 247, 255))
+            image.save(background_path)
+
+            spec_path = tmp_path / "anime_reference_spec.json"
+            output_path = tmp_path / "anime_reference_sample.pptx"
+            spec_path.write_text(
+                json.dumps(
+                    {
+                        "title": "2026 AI 应用趋势调研",
+                        "subtitle": "从智能助手到业务协同",
+                        "author": "Codex",
+                        "theme": {
+                            "background": "EEF7FF",
+                            "foreground": "0B1B4D",
+                            "accent": "2F80ED",
+                            "accent_2": "FF6F82",
+                            "muted": "52637A",
+                            "font_face": "Aptos",
+                        },
+                        "slides": [
+                            {
+                                "layout": "reference_anime_trend",
+                                "background_image": str(background_path),
+                                "coordinate_blueprint": {
+                                    "title_zone": {"x": 1.0, "y": 1.08, "w": 5.1, "h": 0.62},
+                                    "subtitle_zone": {"x": 1.02, "y": 1.78, "w": 4.6, "h": 0.42},
+                                    "bullet_zone": {"x": 1.02, "y": 2.46, "w": 4.95, "h": 2.02},
+                                    "metrics_zone": {"x": 2.05, "y": 5.12, "w": 3.95, "h": 1.08},
+                                    "chart_title_zone": {"x": 6.82, "y": 1.7, "w": 3.2, "h": 0.38},
+                                    "chart_zone": {"x": 6.7, "y": 2.38, "w": 5.08, "h": 3.7},
+                                },
+                                "title": "2026 AI 应用趋势调研",
+                                "subtitle": "从智能助手到业务协同",
+                                "bullets": [
+                                    {"title": "学习成本降低", "body": "AI 工具更易上手，知识获取与技能成长更高效。"},
+                                    {"title": "内容生产提速", "body": "AI 提升内容产出效率，释放更多创造力与价值。"},
+                                    {"title": "团队流程重构", "body": "AI 协同优化流程，驱动组织高效运转与创新。"},
+                                ],
+                                "metrics": [
+                                    {"value": "73%", "label": "企业试点"},
+                                    {"value": "3x", "label": "内容提效"},
+                                    {"value": "2026", "label": "落地窗口"},
+                                ],
+                                "chart": {
+                                    "title": "AI 应用综合趋势指数",
+                                    "labels": ["2023\n探索期", "2024\n成长期", "2025\n加速期", "2026E\n规模化"],
+                                    "values": [58, 72, 86, 96],
+                                    "unit": "",
+                                    "source": "示例数据，仅用于视觉样张",
+                                },
+                            }
+                        ],
+                    },
+                    ensure_ascii=False,
+                    indent=2,
+                ),
+                encoding="utf-8",
+            )
+
+            subprocess.run(
+                [
+                    self.node_executable(),
+                    str(
+                        repo_root
+                        / "skills"
+                        / "visual-ppt-deck-builder"
+                        / "scripts"
+                        / "build_visual_pptx.js"
+                    ),
+                    "--spec",
+                    str(spec_path),
+                    "--output",
+                    str(output_path),
+                ],
+                check=True,
+                env={**os.environ, "NODE_PATH": self.node_modules_path()},
+            )
+
+            self.assertTrue(output_path.is_file())
+            with zipfile.ZipFile(output_path) as pptx_zip:
+                entries = set(pptx_zip.namelist())
+                slide_xml = pptx_zip.read("ppt/slides/slide1.xml").decode("utf-8")
+                self.assertTrue(any(entry.startswith("ppt/media/") for entry in entries))
+                for expected_text in [
+                    "2026",
+                    "AI 应用趋势调研",
+                    "从智能助手到业务协同",
+                    "学习成本降低",
+                    "内容生产提速",
+                    "团队流程重构",
+                    "73%",
+                    "3x",
+                    "企业试点",
+                    "AI 应用综合趋势指数",
+                    "探索期",
+                    "规模化",
+                ]:
+                    self.assertIn(expected_text, slide_xml)
+                self.assertNotIn('prst="roundRect"', slide_xml)
+                self.assertGreaterEqual(slide_xml.count('prst="rect"'), 5)
+                self.assertGreaterEqual(slide_xml.count('prst="line"'), 5)
+                self.assertGreaterEqual(slide_xml.count('prst="ellipse"'), 6)
 
     def test_preview_helper_writes_slide_svgs_and_contact_sheet(self):
         with tempfile.TemporaryDirectory() as tmp_dir:

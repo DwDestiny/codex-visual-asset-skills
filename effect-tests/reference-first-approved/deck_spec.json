@@ -1,0 +1,57 @@
+{
+  "title": "2026 AI 应用趋势调研",
+  "subtitle": "从智能助手到业务协同",
+  "author": "Codex",
+  "theme": {
+    "background": "EEF7FF",
+    "foreground": "0B1B4D",
+    "accent": "2F80ED",
+    "accent_2": "FF6F82",
+    "muted": "52637A",
+    "font_face": "Aptos"
+  },
+  "slides": [
+    {
+      "layout": "reference_anime_trend",
+      "background_image": "assets/anime-clean-background.png",
+      "coordinate_blueprint": {
+        "title_zone": {"x": 1.0, "y": 1.08, "w": 5.1, "h": 0.62},
+        "subtitle_zone": {"x": 1.02, "y": 1.78, "w": 4.6, "h": 0.42},
+        "bullet_zone": {"x": 1.02, "y": 2.46, "w": 4.95, "h": 2.02},
+        "metrics_zone": {"x": 2.05, "y": 5.12, "w": 3.95, "h": 1.08},
+        "chart_title_zone": {"x": 6.82, "y": 1.7, "w": 3.2, "h": 0.38},
+        "chart_zone": {"x": 6.7, "y": 2.38, "w": 5.08, "h": 3.7},
+        "left_character_asset_zone": {"x": 0.05, "y": 4.72, "w": 2.18, "h": 2.68},
+        "right_character_asset_zone": {"x": 11.55, "y": 4.58, "w": 1.72, "h": 2.82}
+      },
+      "title": "2026 AI 应用趋势调研",
+      "subtitle": "从智能助手到业务协同",
+      "bullets": [
+        {
+          "title": "学习成本降低",
+          "body": "AI 工具更易上手，知识获取与技能成长更高效。"
+        },
+        {
+          "title": "内容生产提速",
+          "body": "AI 提升内容产出效率，释放更多创造力与价值。"
+        },
+        {
+          "title": "团队流程重构",
+          "body": "AI 协同优化流程，驱动组织高效运转与创新。"
+        }
+      ],
+      "metrics": [
+        {"value": "73%", "label": "企业试点"},
+        {"value": "3x", "label": "内容提效"},
+        {"value": "2026", "label": "落地窗口"}
+      ],
+      "chart": {
+        "title": "AI 应用综合趋势指数",
+        "labels": ["2023\n探索期", "2024\n成长期", "2025\n加速期", "2026E\n规模化"],
+        "values": [58, 72, 86, 96],
+        "unit": "",
+        "source": "示例数据，仅用于视觉样张"
+      }
+    }
+  ]
+}

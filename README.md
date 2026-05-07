@@ -131,7 +131,7 @@ python ~/.codex/skills/sprite-animation-assets/scripts/compose_sprite_set.py --h
 `visual-ppt-deck-builder` 会指导 Codex：
 
 1. 先确认主题、大纲、风格、张数和每页内容。
-2. 通过 5 套真实 PPTX 样板确认视觉方向；每套样板都有一张由 PPTX 导出的独立 PNG 预览，样板里带标题、正文、指标和图表标签，方便判断字体层级和排版密度；不得使用 SVG 拼凑假图，也不得用整页生图冒充最终可编辑页面；候选页必须是融合式版面，大面积正文容器、大面积图表容器和指标描边框数量必须为 0，文字、数字和图表要嵌入背景留白。每套候选必须先输出坐标蓝图，明确标题区、正文区、图表区、指标区、主视觉区和留白保护区，再按坐标生成背景与落版。背景必须预留阅读安全区、图表安全区和低纹理过渡区；如果看不清，不能靠加框补救。
+2. 通过 5 套真实 PPTX 样板确认视觉方向；每套样板都有一张由 PPTX 导出的独立 PNG 预览，样板里带标题、正文、指标和图表标签，方便判断字体层级和排版密度；不得使用 SVG 拼凑假图，也不得用整页生图冒充最终可编辑页面。推荐流程是先直出完整效果图母稿，确认审美后反拆 clean background、透明素材、坐标蓝图和可编辑 PPT 层；候选页必须是融合式版面，大面积正文容器、大面积图表容器和指标描边框数量必须为 0，文字、数字和图表要嵌入背景留白。背景必须预留阅读安全区、图表安全区和低纹理过渡区；如果看不清，不能靠加框补救。
 3. 逐页生成背景、文案、透明素材、图表和排版，并交付可编辑 PPTX；正文、图表和标签不能整页截图化。
 
 核心脚本：
@@ -308,7 +308,7 @@ python ~/.codex/skills/sprite-animation-assets/scripts/compose_sprite_set.py --h
 `visual-ppt-deck-builder` helps Codex:
 
 1. Confirm topic, outline, style, slide count, and per-slide content.
-2. Use five real PPTX style samples to lock the visual direction. Each sample has an independent PNG preview exported from the PPTX and includes sample titles, body copy, metrics, and chart labels so users can evaluate typography hierarchy and layout density. Do not fake style samples with SVG or full-slide generated images that cannot be reproduced as editable slides; the candidate page must use integrated surfaces instead of two large white boxes pasted over a background. Each candidate must define a coordinate blueprint first, including title, text, chart, metrics, visual focus, and protected whitespace zones, then generate the background and editable layout against that blueprint.
+2. Use five real PPTX style samples to lock the visual direction. Each sample has an independent PNG preview exported from the PPTX and includes sample titles, body copy, metrics, and chart labels so users can evaluate typography hierarchy and layout density. Do not fake style samples with SVG or full-slide generated images that cannot be reproduced as editable slides. The recommended workflow is to generate a full-page style reference image first, then decompose it into a clean background, transparent assets, coordinate blueprint, and editable PPT layers.
 3. Generate backgrounds, copy, transparent assets, charts, and layouts, then deliver an editable PPTX; body text, charts, and labels must stay editable instead of being baked into a full-slide screenshot.
 
 Core script:

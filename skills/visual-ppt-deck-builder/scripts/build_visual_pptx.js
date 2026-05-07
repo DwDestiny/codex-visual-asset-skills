@@ -239,6 +239,337 @@ function add_image(slide, image_path, box) {
   });
 }
 
+function zone_value(blueprint, zone_name, fallback) {
+  const zone = blueprint && blueprint[zone_name] ? blueprint[zone_name] : fallback;
+  return {
+    x: Number(zone.x),
+    y: Number(zone.y),
+    w: Number(zone.w),
+    h: Number(zone.h),
+  };
+}
+
+function add_reference_background(slide, theme, slide_data, spec_dir) {
+  const background_image = resolve_asset_path(slide_data.background_image, spec_dir);
+  if (background_image) {
+    add_image(slide, background_image, { x: 0, y: 0, w: slide_width, h: slide_height });
+    return;
+  }
+  add_background(slide, theme, slide_data);
+}
+
+function add_reference_anime_title(slide, theme, slide_data, zones) {
+  const title_zone = zones.title_zone;
+  const subtitle_zone = zones.subtitle_zone;
+  const title = String(slide_data.title || "");
+  const title_match = title.match(/^(\d{4})(.*)$/);
+  const title_runs = title_match
+    ? [
+        { text: title_match[1], options: { color: theme.accent, bold: true } },
+        { text: title_match[2], options: { color: theme.foreground, bold: true } },
+      ]
+    : [{ text: title, options: { color: theme.foreground, bold: true } }];
+
+  slide.addText(title_runs, {
+    x: title_zone.x,
+    y: title_zone.y,
+    w: title_zone.w,
+    h: title_zone.h,
+    fontFace: theme.font_face,
+    fontSize: 26,
+    margin: 0,
+    fit: "shrink",
+  });
+  slide.addText(String(slide_data.subtitle || ""), {
+    x: subtitle_zone.x,
+    y: subtitle_zone.y,
+    w: subtitle_zone.w,
+    h: subtitle_zone.h,
+    fontFace: theme.font_face,
+    fontSize: 16,
+    color: "3C4F73",
+    margin: 0,
+    fit: "shrink",
+  });
+}
+
+function add_reference_anime_bullets(slide, theme, slide_data, zones) {
+  const bullet_zone = zones.bullet_zone;
+  const bullets = Array.isArray(slide_data.bullets) ? slide_data.bullets.slice(0, 3) : [];
+  const colors = [theme.accent, theme.accent_2, "42C6A5"];
+  const icon_texts = ["学", "产", "协"];
+  bullets.forEach((bullet, index) => {
+    const y_position = bullet_zone.y + index * 0.74;
+    const color = colors[index % colors.length];
+    slide.addShape("ellipse", {
+      x: bullet_zone.x,
+      y: y_position + 0.02,
+      w: 0.46,
+      h: 0.46,
+      fill: { color, transparency: 8 },
+      line: { color: "FFFFFF", pt: 1.2, transparency: 12 },
+    });
+    slide.addText(icon_texts[index], {
+      x: bullet_zone.x,
+      y: y_position + 0.14,
+      w: 0.46,
+      h: 0.16,
+      fontFace: theme.font_face,
+      fontSize: 9,
+      bold: true,
+      color: "FFFFFF",
+      align: "center",
+      margin: 0,
+    });
+    slide.addText(String(bullet.title || ""), {
+      x: bullet_zone.x + 0.72,
+      y: y_position + 0.02,
+      w: bullet_zone.w - 0.8,
+      h: 0.28,
+      fontFace: theme.font_face,
+      fontSize: 14,
+      bold: true,
+      color: theme.foreground,
+      margin: 0,
+      fit: "shrink",
+    });
+    slide.addText(String(bullet.body || ""), {
+      x: bullet_zone.x + 0.72,
+      y: y_position + 0.36,
+      w: bullet_zone.w - 0.8,
+      h: 0.22,
+      fontFace: theme.font_face,
+      fontSize: 9.4,
+      color: theme.muted,
+      margin: 0,
+      fit: "shrink",
+    });
+  });
+}
+
+function add_reference_anime_metrics(slide, theme, slide_data, zones) {
+  const metrics_zone = zones.metrics_zone;
+  const metrics = Array.isArray(slide_data.metrics) ? slide_data.metrics.slice(0, 3) : [];
+  const colors = [theme.accent, theme.accent_2, "42BFA3"];
+  const metric_width = metrics_zone.w / Math.max(metrics.length, 1);
+
+  slide.addShape("line", {
+    x: metrics_zone.x - 0.5,
+    y: metrics_zone.y - 0.25,
+    w: metrics_zone.w + 1.05,
+    h: 0,
+    line: { color: "B9D2F0", pt: 1, transparency: 45, dash: "dash" },
+  });
+
+  metrics.forEach((metric, index) => {
+    const x_position = metrics_zone.x + index * metric_width;
+    if (index > 0) {
+      slide.addShape("line", {
+        x: x_position - 0.12,
+        y: metrics_zone.y + 0.06,
+        w: 0,
+        h: 0.82,
+        line: { color: "B9D2F0", pt: 1, transparency: 52, dash: "dash" },
+      });
+    }
+    slide.addText(String(metric.value || ""), {
+      x: x_position,
+      y: metrics_zone.y,
+      w: metric_width - 0.15,
+      h: 0.4,
+      fontFace: theme.font_face,
+      fontSize: 21,
+      bold: true,
+      color: colors[index % colors.length],
+      align: "center",
+      margin: 0,
+      fit: "shrink",
+    });
+    slide.addText(String(metric.label || ""), {
+      x: x_position,
+      y: metrics_zone.y + 0.45,
+      w: metric_width - 0.15,
+      h: 0.22,
+      fontFace: theme.font_face,
+      fontSize: 8.8,
+      bold: true,
+      color: theme.foreground,
+      align: "center",
+      margin: 0,
+      fit: "shrink",
+    });
+    slide.addShape("ellipse", {
+      x: x_position + metric_width / 2 - 0.16,
+      y: metrics_zone.y + 0.73,
+      w: 0.32,
+      h: 0.32,
+      fill: { color: colors[index % colors.length], transparency: 58 },
+      line: { color: "FFFFFF", transparency: 20 },
+    });
+  });
+}
+
+function add_reference_anime_chart(slide, theme, slide_data, zones) {
+  const chart = slide_data.chart || {};
+  const chart_title_zone = zones.chart_title_zone;
+  const chart_zone = zones.chart_zone;
+  const labels = Array.isArray(chart.labels) ? chart.labels : [];
+  const values = Array.isArray(chart.values) ? chart.values.map(Number) : [];
+  if (labels.length === 0 || values.length === 0 || labels.length !== values.length) {
+    throw new Error(`reference_anime_trend slide requires chart labels and values: ${slide_data.title || ""}`);
+  }
+
+  slide.addText(String(chart.title || ""), {
+    x: chart_title_zone.x,
+    y: chart_title_zone.y,
+    w: chart_title_zone.w,
+    h: chart_title_zone.h,
+    fontFace: theme.font_face,
+    fontSize: 13,
+    bold: true,
+    color: theme.foreground,
+    margin: 0,
+    fit: "shrink",
+  });
+  slide.addShape("line", {
+    x: chart_title_zone.x,
+    y: chart_title_zone.y + 0.42,
+    w: 0.32,
+    h: 0,
+    line: { color: theme.accent, pt: 1.6 },
+  });
+
+  const plot_x = chart_zone.x + 0.55;
+  const plot_y = chart_zone.y + 0.42;
+  const plot_w = chart_zone.w - 0.85;
+  const plot_h = chart_zone.h - 0.82;
+  const max_value = Math.max(...values, 100);
+  const colors = ["FFC83D", "FF7F95", "72D9AA", "5B8FF9"];
+
+  [0, 25, 50, 75, 100].forEach((tick) => {
+    const y_position = plot_y + plot_h - (tick / 100) * plot_h;
+    slide.addShape("line", {
+      x: plot_x,
+      y: y_position,
+      w: plot_w,
+      h: 0,
+      line: { color: "C7D5EA", pt: 0.7, transparency: tick === 0 ? 10 : 52, dash: tick === 0 ? "solid" : "dash" },
+    });
+    slide.addText(String(tick), {
+      x: plot_x - 0.36,
+      y: y_position - 0.07,
+      w: 0.25,
+      h: 0.12,
+      fontFace: theme.font_face,
+      fontSize: 7.5,
+      color: "587092",
+      align: "right",
+      margin: 0,
+    });
+  });
+
+  const bar_gap = 0.52;
+  const bar_w = (plot_w - bar_gap * (values.length - 1)) / values.length * 0.58;
+  const slot_w = plot_w / values.length;
+  const points = [];
+  values.forEach((value, index) => {
+    const slot_x = plot_x + index * slot_w;
+    const bar_x = slot_x + slot_w / 2 - bar_w / 2;
+    const bar_h = (value / max_value) * (plot_h - 0.16);
+    const bar_y = plot_y + plot_h - bar_h;
+    const color = colors[index % colors.length];
+    const point_x = bar_x + bar_w / 2;
+    const point_y = bar_y + 0.16;
+    points.push({ x: point_x, y: point_y });
+    slide.addShape("rect", {
+      x: bar_x,
+      y: bar_y,
+      w: bar_w,
+      h: bar_h,
+      fill: { color, transparency: 8 },
+      line: { color, transparency: 100 },
+    });
+    slide.addText(String(value), {
+      x: bar_x - 0.12,
+      y: bar_y - 0.26,
+      w: bar_w + 0.24,
+      h: 0.18,
+      fontFace: theme.font_face,
+      fontSize: 9.5,
+      bold: true,
+      color: theme.foreground,
+      align: "center",
+      margin: 0,
+      fit: "shrink",
+    });
+    slide.addText(String(labels[index]), {
+      x: slot_x + 0.03,
+      y: plot_y + plot_h + 0.14,
+      w: slot_w - 0.06,
+      h: 0.34,
+      fontFace: theme.font_face,
+      fontSize: 8,
+      color: "52637A",
+      align: "center",
+      margin: 0,
+      fit: "shrink",
+      breakLine: false,
+    });
+  });
+
+  points.slice(0, -1).forEach((point, index) => {
+    const next_point = points[index + 1];
+    slide.addShape("line", {
+      x: point.x,
+      y: point.y,
+      w: next_point.x - point.x,
+      h: next_point.y - point.y,
+      line: { color: theme.accent, pt: 1.8 },
+    });
+  });
+  points.forEach((point) => {
+    slide.addShape("ellipse", {
+      x: point.x - 0.06,
+      y: point.y - 0.06,
+      w: 0.12,
+      h: 0.12,
+      fill: { color: "FFFFFF" },
+      line: { color: theme.accent, pt: 1.3 },
+    });
+  });
+
+  slide.addText(String(chart.source || ""), {
+    x: chart_zone.x + 1.08,
+    y: chart_zone.y + chart_zone.h + 0.18,
+    w: chart_zone.w - 1.2,
+    h: 0.12,
+    fontFace: theme.font_face,
+    fontSize: 5.8,
+    color: "8AA0BB",
+    margin: 0,
+    fit: "shrink",
+  });
+}
+
+function add_reference_anime_trend_slide(pptx, theme, slide_data, spec_dir, slide_index, total_slides) {
+  const slide = pptx.addSlide();
+  add_reference_background(slide, theme, slide_data, spec_dir);
+  const blueprint = slide_data.coordinate_blueprint || {};
+  const zones = {
+    title_zone: zone_value(blueprint, "title_zone", { x: 1.0, y: 1.08, w: 5.1, h: 0.62 }),
+    subtitle_zone: zone_value(blueprint, "subtitle_zone", { x: 1.02, y: 1.78, w: 4.6, h: 0.42 }),
+    bullet_zone: zone_value(blueprint, "bullet_zone", { x: 1.02, y: 2.46, w: 4.95, h: 2.02 }),
+    metrics_zone: zone_value(blueprint, "metrics_zone", { x: 2.05, y: 5.12, w: 3.95, h: 1.08 }),
+    chart_title_zone: zone_value(blueprint, "chart_title_zone", { x: 6.82, y: 1.7, w: 3.2, h: 0.38 }),
+    chart_zone: zone_value(blueprint, "chart_zone", { x: 6.7, y: 2.38, w: 5.08, h: 3.7 }),
+  };
+  add_reference_anime_title(slide, theme, slide_data, zones);
+  add_reference_anime_bullets(slide, theme, slide_data, zones);
+  add_reference_anime_metrics(slide, theme, slide_data, zones);
+  add_reference_anime_chart(slide, theme, slide_data, zones);
+  add_footer(slide, theme, slide_index, total_slides);
+}
+
 function add_title_slide(pptx, theme, slide_data, slide_index, total_slides) {
   const slide = pptx.addSlide();
   add_background(slide, theme, slide_data);
@@ -889,6 +1220,8 @@ function add_slide_by_layout(pptx, theme, slide_data, spec_dir, slide_index, tot
     add_roadmap_slide(pptx, theme, slide_data, slide_index, total_slides);
   } else if (layout === "risk_next_steps") {
     add_risk_next_steps_slide(pptx, theme, slide_data, slide_index, total_slides);
+  } else if (layout === "reference_anime_trend") {
+    add_reference_anime_trend_slide(pptx, theme, slide_data, spec_dir, slide_index, total_slides);
   } else if (layout === "closing" || layout === "section") {
     add_closing_slide(pptx, theme, slide_data, slide_index, total_slides);
   } else {
