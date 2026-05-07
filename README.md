@@ -131,7 +131,7 @@ python ~/.codex/skills/sprite-animation-assets/scripts/compose_sprite_set.py --h
 `visual-ppt-deck-builder` 会指导 Codex：
 
 1. 先确认主题、大纲、风格、张数和每页内容。
-2. 通过 5 张独立 PNG 候选确认视觉方向；不得使用 SVG 拼凑假图，也不要把 5 个风格塞进一张总览图。
+2. 通过 5 张独立 PNG 候选确认视觉方向；候选图要带样本标题、正文、指标和图表标签，方便判断字体层级和排版密度；不得使用 SVG 拼凑假图，也不要把 5 个风格塞进一张总览图。
 3. 逐页生成背景、文案、透明素材、图表和排版，并交付可编辑 PPTX；正文、图表和标签不能整页截图化。
 
 核心脚本：
@@ -308,7 +308,7 @@ python ~/.codex/skills/sprite-animation-assets/scripts/compose_sprite_set.py --h
 `visual-ppt-deck-builder` helps Codex:
 
 1. Confirm topic, outline, style, slide count, and per-slide content.
-2. Use five independent PNG candidates to lock the visual direction; do not fake style samples with SVG, and do not combine the five directions into one overview image.
+2. Use five independent PNG candidates with sample titles, body copy, metrics, and chart labels to lock the visual direction and evaluate typography hierarchy and layout density; do not fake style samples with SVG, and do not combine the five directions into one overview image.
 3. Generate backgrounds, copy, transparent assets, charts, and layouts, then deliver an editable PPTX; body text, charts, and labels must stay editable instead of being baked into a full-slide screenshot.
 
 Core script:

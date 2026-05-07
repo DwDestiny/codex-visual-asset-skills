@@ -104,16 +104,79 @@ function ensure_directory(directory_path) {
   fs.mkdirSync(directory_path, { recursive: true });
 }
 
+function build_sample_content(topic, candidate) {
+  const shared_metrics = [
+    { value: "01", label: "确认主题" },
+    { value: "05", label: "风格候选" },
+    { value: "PPTX", label: "最终交付" },
+  ];
+  const style_details = {
+    "minimal-premium": {
+      subtitle: "从模糊想法到可交付方案",
+      section_title: "核心流程",
+      body: "把主题、证据、视觉和交付物拆成可验收步骤。",
+      bullets: ["先收束故事线", "再确认视觉风格", "最后输出可编辑 PPT"],
+      chart_labels: ["主题", "大纲", "素材", "排版"],
+    },
+    "playful-anime": {
+      subtitle: "轻松理解，马上上手",
+      section_title: "学习目标",
+      body: "用清晰步骤把 Codex 变成自己的创作搭档。",
+      bullets: ["会提需求", "会选风格", "会验收结果"],
+      chart_labels: ["兴趣", "理解", "练习", "作品"],
+    },
+    "data-analytics": {
+      subtitle: "用数据看清交付效率",
+      section_title: "关键指标",
+      body: "用可量化节点判断视觉方案是否值得继续推进。",
+      bullets: ["需求清晰度提升", "返工次数下降", "交付周期缩短"],
+      chart_labels: ["输入", "生成", "验收", "交付"],
+    },
+    "oriental-heritage": {
+      subtitle: "以东方美学组织现代内容",
+      section_title: "方案脉络",
+      body: "在留白、节奏和层级里呈现可信而克制的表达。",
+      bullets: ["立意清楚", "结构有序", "画面留白"],
+      chart_labels: ["起", "承", "转", "合"],
+    },
+    "future-tech": {
+      subtitle: "AI 工作流产品化演示",
+      section_title: "能力模块",
+      body: "把创意、素材、排版和交付连接成一条自动化链路。",
+      bullets: ["智能生成", "素材透明化", "文档可编辑"],
+      chart_labels: ["输入", "推理", "生成", "发布"],
+    },
+  };
+  const detail = style_details[candidate.slug];
+  return {
+    title: topic,
+    subtitle: detail.subtitle,
+    section_title: detail.section_title,
+    body: detail.body,
+    bullets: detail.bullets,
+    metrics: shared_metrics,
+    chart_labels: detail.chart_labels,
+  };
+}
+
 function build_prompt(candidate, topic) {
+  const sample_content = build_sample_content(topic, candidate);
   return [
     `Codex image generation prompt for ${candidate.name}.`,
     "",
     `Create a single independent 16:9 PNG style sample for a PowerPoint deck about: ${topic}.`,
     `Visual direction: ${candidate.prompt_seed}.`,
-    "Show the design mood as a realistic slide design sample: background atmosphere, cover composition, content-page rhythm, chart language, palette, and how transparent visual assets would be layered.",
-    "Do not bake readable slide text, real chart numbers, logos, watermarks, UI labels, or paragraph copy into the image.",
-    "Use abstract unreadable micro-text only where typography texture is needed.",
-    "Leave clean areas where editable PPT text, editable charts, and editable labels can be placed later.",
+    "Show a realistic slide design sample with readable sample text so the user can judge typography hierarchy, font personality, title scale, body rhythm, chart-label treatment, and layout density.",
+    "Use the following sample Chinese content exactly where practical:",
+    `Title: ${sample_content.title}`,
+    `Subtitle: ${sample_content.subtitle}`,
+    `Section title: ${sample_content.section_title}`,
+    `Body: ${sample_content.body}`,
+    `Bullets: ${sample_content.bullets.join(" / ")}`,
+    `Metrics: ${sample_content.metrics.map((metric) => `${metric.value} ${metric.label}`).join(" / ")}`,
+    `Chart labels: ${sample_content.chart_labels.join(" / ")}`,
+    "Make the sample content legible enough to evaluate the Chinese font feeling and spacing. Minor model text imperfections are acceptable, but the slide should clearly show title, content cards, metrics, and chart-label areas.",
+    "Final PPT text must remain editable: this PNG is only a style-selection sample; the final deck must recreate titles, body copy, charts, numbers, and labels as editable PPT objects above generated backgrounds and transparent assets.",
     "Avoid SVG-like flat vector construction. Make it look like a polished AI-generated presentation design reference.",
     `Palette: ${candidate.palette.join(", ")}.`,
     `Transparent assets to generate separately later: ${candidate.transparent_assets.join(", ")}.`,
@@ -132,6 +195,7 @@ function build_candidate(candidate, topic) {
     palette: candidate.palette,
     best_for: candidate.best_for,
     visual_direction: candidate.visual_direction,
+    sample_content: build_sample_content(topic, candidate),
     raster_layers: candidate.raster_layers,
     transparent_assets: candidate.transparent_assets,
     editable_layers: candidate.editable_layers,
@@ -152,14 +216,14 @@ function write_markdown(output_dir, topic, candidates) {
     "",
     `主题：${topic}`,
     "",
-    "硬规则：必须通过 Codex 生图生成 5 张独立 PNG，一张图只代表一个风格；不得使用 SVG 拼凑、网页样式、脚本形状或截图假装真实图片；最终 PPT 中正文、标题、图表、标签要保持文本可编辑。",
+    "硬规则：必须通过 Codex 生图生成 5 张独立 PNG，一张图只代表一个风格；不得使用 SVG 拼凑、网页样式、脚本形状或截图假装真实图片；候选图需要带标题和正文样本文案，用来检查字体层级、字号关系、内容承载和排版密度；最终 PPT 文本可编辑，最终 PPT 文本仍可编辑。",
     "",
     "使用方式：",
     "",
     "1. 打开每个 `prompts/style-sample-*.md`。",
     "2. 逐条调用 Codex 生图能力，生成对应的 PNG。",
     "3. 把生成结果保存到 `generated/style-sample-*.png`。",
-    "4. 让用户从 5 张单独图片里选择风格。",
+    "4. 让用户从 5 张单独图片里选择风格，同时判断标题、正文、指标卡和图表标签是否符合预期。",
     "5. 被选中的方向进入逐页 PPT 生产，背景和装饰可用图片层，关键文字和图表必须用可编辑层。",
     "",
   ];
@@ -172,6 +236,9 @@ function write_markdown(output_dir, topic, candidates) {
     lines.push(`- 视觉方向：${candidate.visual_direction}`);
     lines.push(`- 透明素材：${candidate.transparent_assets.join("、")}`);
     lines.push(`- 可编辑层：${candidate.editable_layers.join("、")}`);
+    lines.push(`- 样本标题：${candidate.sample_content.title}`);
+    lines.push(`- 样本正文：${candidate.sample_content.body}`);
+    lines.push(`- 样本要点：${candidate.sample_content.bullets.join("、")}`);
     lines.push("");
   }
   fs.writeFileSync(path.join(output_dir, "style-candidates.md"), `${lines.join("\n")}\n`, "utf8");
