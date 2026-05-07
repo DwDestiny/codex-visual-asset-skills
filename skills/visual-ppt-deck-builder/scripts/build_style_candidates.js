@@ -384,11 +384,33 @@ function build_background_prompt(candidate, topic) {
     `Create a 16:9 PowerPoint background image only for a deck about: ${topic}.`,
     `Visual direction: ${candidate.prompt_seed}.`,
     "No readable text, no letters, no numbers, no fake UI labels, no chart labels, no titles, no subtitles.",
+    "Reserve deliberate text-safe zones and chart-safe zones: low-detail, low-noise areas with smooth tonal transitions, not blank boxes.",
     "Leave clean whitespace where editable PPT title, body copy, open metric numbers, and chart labels can be placed later without any card frames.",
+    "Build gentle light-to-dark or dark-to-light transition areas behind future text and chart strokes so the final PPT remains readable without adding rescue panels.",
     "This background image is only one raster asset layer. The final candidate preview must be produced by placing editable PPT text, shapes, charts, and labels above it.",
     `Palette reference: ${candidate.palette.join(", ")}.`,
     `Suggested transparent assets to generate separately later: ${candidate.transparent_assets.join(", ")}.`,
   ].join("\n");
+}
+
+function build_safe_zone_plan(candidate) {
+  const dark_style = new Set(["data-analytics", "future-tech"]).has(candidate.slug);
+  const light_style = new Set(["minimal-premium", "oriental-heritage", "playful-anime"]).has(candidate.slug);
+  return {
+    text_zone: light_style
+      ? "左侧或中左侧保留低纹理浅色留白，使用深色主标题和中灰正文；人物、建筑、山水等高细节素材避开正文行高区域。"
+      : "左侧保留低纹理深色留白，使用白色主标题和浅蓝灰正文；高亮元素只作为短线和关键数字使用。",
+    chart_zone: dark_style
+      ? "右侧图表落在平台光带或网格暗区，使用青色/紫色高亮线条，避免细标签压在高亮眩光中心。"
+      : "右侧图表落在浅色留白或纸纹过渡区，使用深色/品牌强调色线条，避免柱体或折线压到复杂纹理。",
+    transition_zone:
+      "文本区和图表区之间必须有柔和明暗过渡或低对比纹理带，让内容像嵌入背景，而不是浮在一块临时矩形上。",
+    text_color_rule: dark_style
+      ? "深背景使用白色标题、浅蓝灰正文、青色重点；禁止在亮光束上放浅色小字。"
+      : "浅背景使用近黑标题、中灰正文、品牌强调色重点；禁止在深色图片纹理上放小号正文。",
+    chart_color_rule:
+      "图表主线/主柱必须比背景高一个明确亮度层级，辅助线降低透明度；标签避开高纹理和强光区域。",
+  };
 }
 
 function build_sample_slide_spec(candidate, content) {
@@ -403,6 +425,8 @@ function build_sample_slide_spec(candidate, content) {
     chart_labels: content.chart_labels,
     integrated_surface_strategy:
       "用背景留白、开放式信息层、无容器图表和无描边指标数字组组成页面，避免把内容装进框里。",
+    readable_area_strategy:
+      "先让背景提供文本安全区、图表安全区和低纹理过渡区，再叠加可编辑文本和图表；不能靠加框补救可读性。",
     forbidden_large_panel_count: 0,
     forbidden_framed_metric_tile_count: 0,
   };
@@ -437,6 +461,9 @@ function build_candidate(candidate_template, topic) {
       "背景和装饰只能作为独立 raster/transparent image assets 叠加，不得承载正式正文、关键数字或图表标签。",
     surface_strategy:
       "采用融合式版面：文本、指标和图表嵌入背景留白、光带或纸纹/玻璃层中，形成同一视觉系统。",
+    readability_contract:
+      "配色、配图和字色必须服务可读性：标题、正文、指标、图表线条都要落在背景预留的阅读安全区或图表安全区，过渡区域先由背景生成，不能靠加框补救。",
+    safe_zone_plan: build_safe_zone_plan(candidate_template),
     no_plain_white_box_contract:
       "禁止大白框和容器框：不得用大面积矩形或指标描边框承载正文、指标和图表，浅色区域也必须依靠背景留白、纹理、细线和开放式布局。",
     large_surface_count: {
@@ -660,6 +687,9 @@ function write_markdown(output_dir, topic, candidates) {
     lines.push(`- 样本正文：${candidate.sample_content.body}`);
     lines.push(`- 分层契约：${candidate.editable_text_contract}`);
     lines.push(`- 融合策略：${candidate.surface_strategy}`);
+    lines.push(`- 阅读安全区：${candidate.safe_zone_plan.text_zone}`);
+    lines.push(`- 图表安全区：${candidate.safe_zone_plan.chart_zone}`);
+    lines.push(`- 可读性契约：${candidate.readability_contract}`);
     lines.push(`- 白框约束：${candidate.no_plain_white_box_contract}`);
     lines.push(`- 大面积正文容器：${candidate.large_surface_count.content_panels}`);
     lines.push(`- 大面积图表容器：${candidate.large_surface_count.chart_panels}`);
@@ -679,6 +709,14 @@ function write_spec(output_dir, topic, candidates) {
       "PPTX 样板中的标题、正文、指标、图表标签和关键注释必须可编辑；图片只承担背景、透明素材和装饰层。",
     visual_quality_contract:
       "候选必须达到融合式版面：背景、文本、指标和图表属于同一视觉系统；文字和图表要嵌入背景留白，禁止大白框、内容容器框和指标描边框。",
+    readable_area_policy: {
+      text_safe_zones_required: true,
+      chart_safe_zones_required: true,
+      low_detail_transition_required: true,
+      min_body_text_contrast_ratio: 4.5,
+      min_chart_stroke_contrast_ratio: 3.0,
+      anti_rescue_box_rule: "不能靠加框补救可读性；必须先通过背景留白、低纹理过渡区和字色/线色选择解决。",
+    },
     large_surface_policy: {
       max_large_content_panels: 0,
       max_large_chart_panels: 0,
